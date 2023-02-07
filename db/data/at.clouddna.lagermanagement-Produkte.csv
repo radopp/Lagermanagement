@@ -1,0 +1,4 @@
+ID;name;beschreibung;preis;mindestbestand;mengeok;mengewarnung;lieferant_ID
+2f660be1-2012-4840-a3fa-0e55bd705a16;Tastatur;Logitech Bluetooth Tastatur;80.59;10;20;12;7fec3a58-859a-4313-908d-b6d5227acfb2
+522291f8-0c9b-46f2-8935-70c0c10ed359;Maus;Logitech Bluetooth Maus;39.99;5;10;8;7fec3a58-859a-4313-908d-b6d5227acfb2
+49853eb5-06ae-4f40-a977-ba8f9a3d724d;Laptop;Acer Gaming Laptop;899.59;3;7;10;637b024c-1e2b-458e-a4e6-476fb7eb3435
