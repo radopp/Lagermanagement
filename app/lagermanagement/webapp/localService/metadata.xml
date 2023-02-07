@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:DataServices>
+        <Schema Namespace="Lagermanagement" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Produkte" EntityType="Lagermanagement.Produkte">
+                    <NavigationPropertyBinding Path="lieferant" Target="Lieferanten"/>
+                </EntitySet>
+                <EntitySet Name="Lager" EntityType="Lagermanagement.Lager"/>
+                <EntitySet Name="Lagerbestand" EntityType="Lagermanagement.Lagerbestand">
+                    <NavigationPropertyBinding Path="lager" Target="Lager"/>
+                    <NavigationPropertyBinding Path="produkt" Target="Produkte"/>
+                </EntitySet>
+                <EntitySet Name="Bestellungen" EntityType="Lagermanagement.Bestellungen"/>
+                <EntitySet Name="Bestellposition" EntityType="Lagermanagement.Bestellposition">
+                    <NavigationPropertyBinding Path="bestellung" Target="Bestellungen"/>
+                    <NavigationPropertyBinding Path="produkt" Target="Produkte"/>
+                </EntitySet>
+                <EntitySet Name="Lieferanten" EntityType="Lagermanagement.Lieferanten"/>
+            </EntityContainer>
+            <EntityType Name="Produkte">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="beschreibung" Type="Edm.String"/>
+                <Property Name="preis" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="mindestbestand" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="mengeok" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="mengewarnung" Type="Edm.Decimal" Scale="variable"/>
+                <NavigationProperty Name="lieferant" Type="Lagermanagement.Lieferanten">
+                    <ReferentialConstraint Property="lieferant_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="lieferant_ID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="Lager">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="ort" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Lagerbestand">
+                <Key>
+                    <PropertyRef Name="lager_ID"/>
+                    <PropertyRef Name="produkt_ID"/>
+                </Key>
+                <NavigationProperty Name="lager" Type="Lagermanagement.Lager">
+                    <ReferentialConstraint Property="lager_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="lager_ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="produkt" Type="Lagermanagement.Produkte">
+                    <ReferentialConstraint Property="produkt_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="produkt_ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="menge" Type="Edm.Decimal" Scale="variable"/>
+            </EntityType>
+            <EntityType Name="Bestellungen">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="bestelldatum" Type="Edm.Date"/>
+                <Property Name="lieferdatum" Type="Edm.Date"/>
+            </EntityType>
+            <EntityType Name="Bestellposition">
+                <Key>
+                    <PropertyRef Name="bestellung_ID"/>
+                    <PropertyRef Name="produkt_ID"/>
+                </Key>
+                <NavigationProperty Name="bestellung" Type="Lagermanagement.Bestellungen">
+                    <ReferentialConstraint Property="bestellung_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="bestellung_ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="produkt" Type="Lagermanagement.Produkte">
+                    <ReferentialConstraint Property="produkt_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="produkt_ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="anzahl" Type="Edm.Decimal" Scale="variable"/>
+            </EntityType>
+            <EntityType Name="Lieferanten">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String"/>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

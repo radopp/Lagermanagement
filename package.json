@@ -10,9 +10,24 @@
     "express": "^4"
   },
   "devDependencies": {
+    "@sap/ux-specification": "^1.102.16",
     "sqlite3": "^5.0.4"
   },
   "scripts": {
-    "start": "cds run"
+    "start": "cds run",
+    "watch-lagermanagement": "cds watch --open lagermanagement/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/lagermanagement"
+  ],
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "sqlite.db"
+        }
+      }
+    }
   }
 }

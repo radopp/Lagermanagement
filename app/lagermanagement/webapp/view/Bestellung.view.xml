@@ -1,0 +1,60 @@
+<mvc:View id="Bestellung"
+    controllerName="at.clouddna.lagermanagement.controller.Bestellung" 
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
+    xmlns:core="sap.ui.core" 
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified" 
+    xmlns="sap.m"
+    class="viewPadding">
+    <Page id="page" title="Bestellung">
+        <content>
+        <HBox>
+        <Table id="produkte_table" headerText="Bestellung" items="{path:'/Bestellung_Produkt'}">
+                <headerToolbar>
+                    <OverflowToolbar id="_IDGenOverflowToolbar1">
+                        <Title id="_IDGenTitle1" text="Bestellung" />
+                        <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                        <Button icon="sap-icon://download" press="toExcel" />
+                        <Button text="neuen Eintrag erstellen" type="Accept" press="onCreatePressed" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Produkt" />
+                    </Column>
+                    <Column>
+                        <Text text="Produktbeschreibung" />
+                    </Column>
+                    <Column>
+                        <Text text="Bestelldatum" />
+                    </Column>
+                    <Column>
+                        <Text text="Lieferdatum" />
+                    </Column>
+                    <Column>
+                        <Text text="Anzahl" />
+                    </Column>
+                    <Column>
+                        <Text text="Button" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="listEntries" type="Navigation" press="onListItemPressed">
+                        <cells>     
+                            <Text text="{produkt/name}" />
+                            <Text text="{produkt/beschreibung}" />
+                            <Text text="{bestellung/bestelldatum}" />
+                            <Text text="{bestellung/lieferdatum}" />
+                            <Text text="{anzahl}" />
+                            <HBox>
+                            <Button id="deleteButton" icon="sap-icon://delete" type="Reject" press="onDeleteButtonPressed"/>
+                            </HBox>
+                            </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </HBox>
+        </content>
+    </Page>
+</mvc:View>

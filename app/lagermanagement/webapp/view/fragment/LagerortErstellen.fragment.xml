@@ -1,0 +1,32 @@
+<core:FragmentDefinition 
+  xmlns:core="sap.ui.core" 
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form">
+
+    <f:SimpleForm id="SimpleFormChange354"
+			editable="true"
+			layout="ResponsiveGridLayout"
+			title="Lagerort erstellen"
+			labelSpanXL="3"
+			labelSpanL="3"
+			labelSpanM="3"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+                <Label text="Lager Name" labelFor="edit_input_lieferant" />
+				<Input value="{name}">
+				</Input>
+                <Label text="Lagerort" labelFor="edit_input_lieferant" />
+				<Input value="{ort}">
+				</Input>
+				</f:content>
+		</f:SimpleForm>
+</core:FragmentDefinition>

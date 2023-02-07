@@ -1,0 +1,1 @@
+using Lagermanagement as service from '../../srv/service';

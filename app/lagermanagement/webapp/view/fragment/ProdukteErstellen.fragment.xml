@@ -1,0 +1,66 @@
+<core:FragmentDefinition 
+  xmlns:core="sap.ui.core" 
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form">
+
+    <f:SimpleForm id="SimpleFormChange354"
+			editable="true"
+			layout="ResponsiveGridLayout"
+			title="Produkt erstellen"
+			labelSpanXL="3"
+			labelSpanL="3"
+			labelSpanM="3"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+                <Label text="Produktname" labelFor="edit_input_produktname" />
+				<Input value="{name}">
+				</Input>
+                <Label text="Produktbeschreibung" labelFor="edit_input_produktbeschreibung" />
+				<Input value="{beschreibung}">
+				</Input>
+                <Label text="Preis" labelFor="edit_input_preis" />
+				<Input value="{preis}" width="40%" description="EUR">
+				</Input>
+                <Label text="Preis" wrapping="true"/>
+                <Label text="Mindestbestand" wrapping="true"/>
+				<VBox>
+					<StepInput
+						value="{mindestbestand}"
+						change="onChange"/>
+				</VBox>
+                <Label text="Mengeok" wrapping="true"/>
+				<VBox>
+					<StepInput
+						value="{mengeok}"
+						change="onChange"/>
+				</VBox>
+                <Label text="Mengewarnung" wrapping="true"/>
+				<VBox>
+					<StepInput
+						value="{mengewarnung}"
+						change="onChange"/>
+				</VBox>
+                <Label text="Lieferant" wrapping="true"/>
+                <ActionSelect
+			        selectedKey="{lieferant_ID}"
+					forceSelection="false"
+			        items="{
+			        path: '/Lieferanten',
+			        sorter: { path:'name'}
+			        }">
+		            <items>
+				        <core:Item text="{name}" key="{ID}"/>
+			        </items>
+		        </ActionSelect>
+				</f:content>
+		</f:SimpleForm>
+</core:FragmentDefinition>

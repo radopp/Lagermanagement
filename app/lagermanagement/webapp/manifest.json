@@ -1,0 +1,234 @@
+{
+    "_version": "1.40.0",
+    "sap.app": {
+        "id": "at.clouddna.lagermanagement",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.7.3",
+            "toolsId": "d27ee935-29f4-4ba4-a4db-1b1e90707fbd"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/lagermanagement/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "dependencies": {
+            "minUI5Version": "1.109.3",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "at.clouddna.lagermanagement.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "at.clouddna.lagermanagement.view",
+                "controlAggregation": "detailPages",
+                "controlId": "pages",
+                "clearControlAggregation": false,
+                "path": "at.clouddna.lagermanagement.view"
+            },
+            "routes": [
+                {
+                    "name": "RouteApp",
+                    "pattern": ":?query:",
+                    "target": "RouteApp"
+                },
+                {
+                    "name": "Produkte",
+                    "pattern": "Produkte",
+                    "target": "TargetProdukte"
+                },
+                {
+                    "name": "Lieferant",
+                    "pattern": "Lieferant",
+                    "target": "TargetLieferant"
+                },
+                {
+                    "pattern": ":?query:",
+                    "name": "TargetApp",
+                    "target": "TargetApp"
+                },
+                {
+                  "name": "Lagerort",
+                  "pattern": "Lagerort",
+                  "target": "TargetLagerort"
+                },
+                {
+                  "name": "Bestellung",
+                  "pattern": "Bestellung",
+                  "target": "TargetBestellung"
+                },
+                {
+                  "name": "ProdukteErstellen",
+                  "pattern": "ProdukteErstellen",
+                  "target": "TargetProdukteDetail"
+                },
+                {
+                  "name": "ProdukteBearbeiten",
+                  "pattern": "ProdukteBearbeiten/{ID}",
+                  "target": "TargetProdukteDetail"
+                },
+                {
+                  "name": "LieferantErstellen",
+                  "pattern": "LieferantErstellen",
+                  "target": "TargetLieferantDetail"
+                },
+                {
+                  "name": "LieferantBearbeiten",
+                  "pattern": "LieferantBearbeiten/{ID}",
+                  "target": "TargetLieferantDetail"
+                },
+                {
+                  "name": "LagerortErstellen",
+                  "pattern": "LagerortErstellen",
+                  "target": "TargetLagerortDetail"
+                },
+                {
+                  "name": "LagerortBearbeiten",
+                  "pattern": "LagerortBearbeiten/{ID}",
+                  "target": "TargetLagerortDetail"
+                }
+            ],
+            "targets": {
+                "TargetApp": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "App",
+                    "viewName": "App"
+                },
+                "TargetProdukte": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "Produkte",
+                    "viewName": "Produkte"
+                },
+                "TargetLieferant": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "Lieferant",
+                    "viewName": "Lieferant"
+                },
+                "TargetLagerort": {
+                  "viewType": "XML",
+                  "transition": "slide",
+                  "clearControlAggregation": false,
+                  "viewId": "Lagerort",
+                  "viewName": "Lagerort"
+                },
+                  "TargetBestellung": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "Bestellung",
+                    "viewName": "Bestellung"
+                },
+                  "TargetProdukteDetail": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "ProdukteDetail",
+                    "viewName": "ProdukteDetail"
+                },
+                  "TargetLieferantDetail": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "LieferantDetail",
+                    "viewName": "LieferantDetail"
+                },
+                  "TargetLagerortDetail": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "LagerortDetail",
+                    "viewName": "LagerortDetail"
+              }
+            }
+        },
+        "rootView": {
+            "viewName": "at.clouddna.lagermanagement.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {}
+            }
+        }
+    }
+}
