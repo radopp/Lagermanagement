@@ -7,4 +7,6 @@ service Lagermanagement {
     entity Bestellungen as projection on lm.Bestellungen;
     entity Bestellposition as projection on lm.Bestellung_Produkt;
     entity Lieferanten as projection on lm.Lieferanten;
+
+    action produkteBestellen (bestelldatum: DateTime, lieferdatum: DateTime, produkte: array of { produkt_ID : Produkte:ID; anzahl : Integer });
 }

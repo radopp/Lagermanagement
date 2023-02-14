@@ -1,1 +1,17 @@
-http://localhost:4004/lagermanagement/Bestellposition
+POST http://localhost:4004/lagermanagement/produkteBestellen HTTP/1.1
+content-type: application/json
+
+{
+    "bestelldatum": "{{$datetime iso8601 }}",
+    "lieferdatum": "{{$datetime iso8601 }}",
+    "produkte": [
+        {
+            "produkt_ID": "{{$guid}}",
+            "anzahl": 3
+        },
+        {
+            "produkt_ID": "{{$guid}}",
+            "anzahl": 2
+        }
+    ]
+}
