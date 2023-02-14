@@ -1,0 +1,23 @@
+<mvc:View controllerName="at.clouddna.lagermanagement.controller.BestellungDetail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+	xmlns:fiori="sap.ui.core.mvc"
+    xmlns="sap.m"
+	xmlns:main="sap.ui.webc.fiori"
+	height="100%">
+    <Page id="bestellung_page" title="Bestellung">
+        <content>
+				
+        </content>
+        <footer>
+            <Bar>
+                <contentRight>
+                    <Button id="btnSave" text="save" type="Accept"
+                        icon="sap-icon://save" press="onSavePressed" visible="{editModel>/editmode}"/>
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>

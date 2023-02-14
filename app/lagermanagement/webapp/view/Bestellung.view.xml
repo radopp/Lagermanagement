@@ -1,4 +1,4 @@
-<mvc:View id="Bestellung"
+<!-- <mvc:View id="Bestellung"
     controllerName="at.clouddna.lagermanagement.controller.Bestellung" 
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
     xmlns:core="sap.ui.core" 
@@ -10,7 +10,7 @@
     <Page id="page" title="Bestellung">
         <content>
         <HBox>
-        <Table id="produkte_table" headerText="Bestellung" items="{path:'/Bestellung_Produkt'}">
+        <Table id="produkte_table" headerText="Bestellung" items="{path:'/Bestellposition'}">
                 <headerToolbar>
                     <OverflowToolbar id="_IDGenOverflowToolbar1">
                         <Title id="_IDGenTitle1" text="Bestellung" />
@@ -22,9 +22,6 @@
                 <columns>
                     <Column>
                         <Text text="Produkt" />
-                    </Column>
-                    <Column>
-                        <Text text="Produktbeschreibung" />
                     </Column>
                     <Column>
                         <Text text="Bestelldatum" />
@@ -43,7 +40,6 @@
                     <ColumnListItem id="listEntries" type="Navigation" press="onListItemPressed">
                         <cells>     
                             <Text text="{produkt/name}" />
-                            <Text text="{produkt/beschreibung}" />
                             <Text text="{bestellung/bestelldatum}" />
                             <Text text="{bestellung/lieferdatum}" />
                             <Text text="{anzahl}" />
@@ -57,4 +53,59 @@
         </HBox>
         </content>
     </Page>
+</mvc:View> -->
+
+<mvc:View
+    controllerName="at.clouddna.lagermanagement.controller.Bestellung"
+    xmlns="sap.ui.table"
+    xmlns:m="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+
+    <TreeTable
+        id="treeTable"
+        selectionMode="Single"
+        enableColumnReordering="false"
+        rows="{
+            path : '/Bestellposition',
+            parameters : {
+                countMode: 'Inline',
+                treeAnnotationProperties : {
+                    hierarchyLevelFor : 'Produkte',
+                    hierarchyNodeFor : 'Bestelldatum',
+                    hierarchyParentNodeFor : 'Lieferdatum',
+                    hierarchyDrillStateFor : 'Anzahl'
+                }
+            }
+        }">
+
+        <columns>
+
+            <Column label="Produkte">
+                <template>
+                    <m:Text text="{produkt/name}" wrapping="false" />
+                </template>
+            </Column>
+
+            <Column label="Bestelldatum">
+                <template>
+                    <m:Text text="{bestellung/bestelldatum}" wrapping="false" />
+                </template>
+            </Column>
+
+            <Column label="Lieferdatum">
+                <template>
+                    <m:Text text="{bestellung/lieferdatum}" wrapping="false" />
+                </template>
+            </Column>
+
+            <Column label="Anzahl">
+                <template>
+                    <m:Text text="{anzahl}" wrapping="false" />
+                </template>
+            </Column>
+
+        </columns>
+
+    </TreeTable>
+
 </mvc:View>

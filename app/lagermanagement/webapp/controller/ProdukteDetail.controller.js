@@ -42,31 +42,11 @@ sap.ui.define(
         _onPatternMatchedCreate: function (oEvent) {
           this.bCreate = true; 
           this.getView().unbindElement();
-          let oContext =this.getView().getModel().bindList("/Produkte").create(undefined, undefined, undefined, true);
+          let oContext = this.getView().getModel().bindList("/Produkte").create(undefined, undefined, undefined, true);
           this._setFragement("ProdukteErstellen");
           this.getView().setBindingContext(oContext);
         },
-        onDeleteButtonPressed: function (oEvent){
-          let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
-              
-          let oSource = oEvent.getSource();
-          let sPath = oSource.getBindingContext().getPath();
-              
-          MessageBox.warning(oResourceBundle.getText("Wollen Sie ihren Eintrag wirklich löschen?"), {
-              title: oResourceBundle.getText("Delete"),
-              actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-              emphasizedAction: MessageBox.Action.YES,
-              onClose: function(oAction){
-                  if(MessageBox.Action.YES === oAction){
-                    this.getView().getObjectBinding().getBoundContext().delete().then(function(){
-                    this.getView().getModel().refresh()
-                    }.bind(this));
-                    this.onNavBack();
-                    }
-              }.bind(this)}
-  
-              );
-          },
+        
         _setFragement: function (sFragmentName) {
           let oPage = this.getView().byId("produkte_page");
           oPage.removeAllContent();
@@ -111,65 +91,29 @@ sap.ui.define(
   
         
          onSavePressed: function () {
-          let oModel = this.getView().getModel();
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-            debugger;
-          let sSuccessText = this.bCreate
-            ? oResourceBundle.getText("Ihr Eintrag wurde erfolgreich erstellt.")
-            : oResourceBundle.getText("Ihr eintrag wurde erfolgreich bearbeitet.");
-            
-          //this.getView().bindElement(oListBindingContext.getPath());
-          if(this.bCreate){
-            
-            let oListBinding=oModel.bindList("/Produkte");
-            oListBinding.attachCreateCompleted((oEvent)=>{
-              debugger;
-            })
-            //oListBinding.create(this.getView().getModel("createModel").getData());
-
-            //let oListBindingContext=this.getView().getModel().bindList("/Lieferant").create(this.getView().getModel("createModel").getData());
-        
-            oModel.submitBatch("$auto").then((oData, response) => {
-              MessageBox.success(sSuccessText, {
-                onClose: () => {
-                  if (this.bCreate) {
-                    this.onNavBack();
-                  } else {
-                    this._toggleEdit(false);
-                  }
-                this.getView().getModel().refresh()
-                }
-                
-              }
-              );
-            
-            (oError) => {
-              MessageBox.error(oError.message);
-            }
-            });
-    
-          }else{
-            oModel.submitBatch("$auto").then(
-              (oData, response) => {
-                MessageBox.success(sSuccessText, {
-                  onClose: () => {
-                    if (!this.bCreate) {
-                      this.onNavBack();
-                    } else {
-                      this._toggleEdit(false);
-                    }
-                    this.getView().getModel().refresh()
-                    },
-                });
-              },
-              (oError) => {
-                MessageBox.error(oError.message);
-              },
-            );
-          }
+           this.onNavBack();
+           this.getView().getModel().refresh();
         },
+
+        onDeleteButtonPressed: function (oEvent){
+          let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+              
+          MessageBox.warning(oResourceBundle.getText("Wollen Sie ihren Eintrag wirklich löschen?"), {
+              title: oResourceBundle.getText("Delete"),
+              actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+              emphasizedAction: MessageBox.Action.YES,
+              onClose: function(oAction){
+                  if(MessageBox.Action.YES === oAction){
+                    debugger;
+                    this.getView().getObjectBinding().getBoundContext().delete().then(function(){
+                    this.getView().getModel().refresh()
+                    }.bind(this));
+                    this.onNavBack();
+                    }
+              }.bind(this)}
+  
+              );
+          }
       });
     },
   );

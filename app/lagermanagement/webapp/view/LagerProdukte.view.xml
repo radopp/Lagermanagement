@@ -1,5 +1,5 @@
-<mvc:View id="Lagerort"
-    controllerName="at.clouddna.lagermanagement.controller.Lagerort" 
+<mvc:View id="Lager Produkte"
+    controllerName="at.clouddna.lagermanagement.controller.LagerProdukte" 
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
     xmlns:core="sap.ui.core" 
     xmlns:f="sap.ui.layout.form"
@@ -7,16 +7,15 @@
     xmlns:u="sap.ui.unified" 
     xmlns="sap.m"
     class="viewPadding">
-    <Page id="page" title="Lagerorte">
+    <Page id="page" title="Lager Produkte">
         <content>
         <HBox>
-        <Table id="produkte_table" headerText="Produkte" items="{path:'/Lager'}">
+        <Table id="produkte_table" headerText="Lager Produkte" items="{path:'/Lagerbestand'}">
                 <headerToolbar>
                     <OverflowToolbar id="_IDGenOverflowToolbar1">
-                        <Title id="_IDGenTitle1" text="Lagerorte" />
+                        <Title id="_IDGenTitle1" text="Lager Produkte" />
                         <ToolbarSpacer id="_IDGenToolbarSpacer1" />
                         <Button icon="sap-icon://download" press="toExcel" />
-                        <Button text="neuen Eintrag erstellen" type="Accept" press="onCreatePressed" />
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
@@ -24,26 +23,22 @@
                         <Text text="Lager Name" />
                     </Column>
                     <Column>
-                        <Text text="Lagerort" />
+                        <Text text="Lager Ort" />
                     </Column>
                     <Column>
-                        <Text text="Löschen Button" />
+                        <Text text="Produkt" />
                     </Column>
                     <Column>
-                        <Text text="Produkte im Lager" />
+                        <Text text="Anzahl" />
                     </Column>
                 </columns>
                 <items>
                     <ColumnListItem id="listEntries" type="Navigation" press="onListItemPressed">
-                        <cells>     
-                            <Text text="{name}" />
-                            <Text text="{ort}" />
-                            <HBox>
-                            <Button id="deleteButton" icon="sap-icon://delete" type="Reject" press="onDeleteButtonPressed"/>
-                            </HBox>
-                            <HBox>
-                            <Button id="produkteButton" icon="sap-icon://accelerated" type="Transparent" press="onProduktePressed"/>
-                            </HBox>
+                        <cells>
+                             <Text text="{lager/name}" /> 
+                            <Text text="{lager/ort}" />    
+                            <Text text="{produkt/name}" />
+                            <Text text="{menge}" />
                             </cells>
                     </ColumnListItem>
                 </items>

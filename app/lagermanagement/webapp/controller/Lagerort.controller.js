@@ -46,6 +46,11 @@ sap.ui.define(
           let oRouter = this.getOwnerComponent().getRouter();
           oRouter.navTo("LagerortErstellen");
         },
+
+        onProduktePressed: function () {
+          let oRouter = this.getOwnerComponent().getRouter();
+          oRouter.navTo("LagerProdukte");
+        },
   
         onDeleteButtonPressed: function (oEvent) {
           let oResourceBundle = this.getView()

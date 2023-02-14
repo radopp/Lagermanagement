@@ -39,14 +39,14 @@ sap.ui.define(
         onListItemPressed: function (oEvent) {
           let sPath = oEvent.getSource().getBindingContext().getPath();
           let oRouter = this.getOwnerComponent().getRouter();
-          oRouter.navTo("ProduktBearbeiten", {
+          oRouter.navTo("BestellungBearbeiten", {
             ID: sPath.split("(")[1].split(")")[0],
           });
         },
 
         onCreatePressed: function () {
           let oRouter = this.getOwnerComponent().getRouter();
-          oRouter.navTo("ProduktErstellen");
+          oRouter.navTo("BestellungErstellen");
         },
   
         onDeleteButtonPressed: function (oEvent) {
