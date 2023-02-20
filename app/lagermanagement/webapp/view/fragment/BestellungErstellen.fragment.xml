@@ -37,13 +37,14 @@
                 <HBox>
                     <VBox class="sapUiSmallMargin">
                         <Label text="Produkt" />
-                        <Select selectedKey="{path: 'bestellungModel>produktid', type: 'sap.ui.model.odata.type.Guid'}" items="{/Produkte}">
+                        <!-- <Select selectedKey="{path: 'bestellungModel>produktid', type: 'sap.ui.model.odata.type.Guid'}" items="{/Produkte}"> -->
+                        <Select selectedKey="{bestellModel>produkt/name}" items="{/Produkte}">
                           <core:Item key="{ID}" text="{name}"/>
                         </Select>
                     </VBox>
                     <VBox class="sapUiSmallMargin">
                       <Label text="Anzahl"/>
-                      <StepInput value="{bestellungModel>anzahl}"/>
+                      <StepInput value="{bestellModel>anzahl}"/>
                     </VBox >
                 </HBox>
             </CustomListItem>
