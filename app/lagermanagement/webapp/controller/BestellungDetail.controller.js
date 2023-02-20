@@ -86,6 +86,7 @@ sap.ui.define(
           }
         },
 
+
         onNewPressed: function () {
           let oModel = this.getView().getModel("bestellungModel"),
             aItems = oModel.getProperty("/produkte");
@@ -124,6 +125,21 @@ sap.ui.define(
         },
 
         onSavePressed: function () {
+          let oModel = this.getView().getModel("bestellungModel"),
+              oBestellung = { 
+                bestelldatum: oModel.getProperty("/bestelldatum"),
+                lieferdatum: oModel.getProperty("/lieferdatum")
+              };
+
+              //let oListBindingContext=this.getView().getModel().bindList("/Bestellung").create(this.getView().getModel("bestellungModel"));
+              let oListBindingContext = this.getView()
+              .getModel()
+              .bindList("/Bestellungen")
+              .create(oBestellung);
+
+
+          debugger;
+
           this.onNavBack();
           this.getView().getModel().refresh();
         },

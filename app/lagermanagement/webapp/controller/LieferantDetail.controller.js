@@ -74,7 +74,7 @@ sap.ui.define(
           window.history.go(-1);
         } else {
           let oRouter = this.getOwnerComponent().getRouter();
-          oRouter.navTo("Lieerant");
+          oRouter.navTo("Lieferant");
         }
       },
       onEditPressed: function () {

@@ -1,4 +1,4 @@
-<mvc:View id="Bestellung"
+<!-- <mvc:View id="Bestellung"
     controllerName="at.clouddna.lagermanagement.controller.Bestellung" 
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
     xmlns:core="sap.ui.core" 
@@ -53,59 +53,81 @@
         </HBox>
         </content>
     </Page>
-</mvc:View>
-
-<!-- <mvc:View
-    controllerName="at.clouddna.lagermanagement.controller.Bestellung"
-    xmlns="sap.ui.table"
-    xmlns:m="sap.m"
-    xmlns:mvc="sap.ui.core.mvc">
-
-    <TreeTable
-        id="treeTable"
-        selectionMode="Single"
-        enableColumnReordering="false"
-        rows="{
-            path : '/Bestellposition',
-            parameters : {
-                countMode: 'Inline',
-                treeAnnotationProperties : {
-                    hierarchyLevelFor : 'Produkte',
-                    hierarchyNodeFor : 'Bestelldatum',
-                    hierarchyParentNodeFor : 'Lieferdatum',
-                    hierarchyDrillStateFor : 'Anzahl'
-                }
-            }
-        }">
-
-        <columns>
-
-            <Column label="Produkte">
-                <template>
-                    <m:Text text="{produkt/name}" wrapping="false" />
-                </template>
-            </Column>
-
-            <Column label="Bestelldatum">
-                <template>
-                    <m:Text text="{bestellung/bestelldatum}" wrapping="false" />
-                </template>
-            </Column>
-
-            <Column label="Lieferdatum">
-                <template>
-                    <m:Text text="{bestellung/lieferdatum}" wrapping="false" />
-                </template>
-            </Column>
-
-            <Column label="Anzahl">
-                <template>
-                    <m:Text text="{anzahl}" wrapping="false" />
-                </template>
-            </Column>
-
-        </columns>
-
-    </TreeTable>
-
 </mvc:View> -->
+
+
+<mvc:View
+        controllerName="at.clouddna.lagermanagement.controller.Bestellung"
+        xmlns="sap.ui.table"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:m="sap.m"
+        xmlns:u="sap.ui.unified"
+        xmlns:core="sap.ui.core"
+        height="100%">
+    <m:Page
+            showHeader="false"
+            enableScrolling="false">
+        <m:content>
+            <TreeTable
+                    selectionMode="None"
+                    id="TreeTableBasic"
+                    rows="{path:'bestellModel>/', parameters:{arrayNames:['positionen']}}"
+                    enableSelectAll="false"
+                    ariaLabelledBy="title">
+                <extension>
+                    <m:OverflowToolbar style="Clear">
+                        <m:Title id="bestellungen" text="Bestellungen"/>
+                        <m:ToolbarSpacer/>
+                        <m:Button text="neuen Eintrag erstellen" type="Accept" press="onCreatePressed" />
+                    </m:OverflowToolbar>
+                </extension>
+                <columns>
+                    <Column>
+                        <m:Label text="ID"/>
+                        <template>
+                            <m:Text text="{path:'bestellModel>', formatter:'.getIdforPosition'}"/>
+                        </template>
+                    </Column>
+                    <Column>
+                        <m:Label text="Produkt/e"/>
+                        <template>
+                            <m:Text text="{bestellModel>produkt/name}"/>
+                        </template>
+                    </Column>
+                    <Column>
+                        <m:Label text="Anzahl"/>
+                        <template>
+                            <m:Text text="{bestellModel>anzahl}"/>
+                        </template>
+                    </Column>
+                    <Column>
+                        <m:Label text="Bestelldatum"/>
+                        <template>
+                            <m:Text text="{path:'bestellModel>bestelldatum', type:'sap.ui.model.type.Date', formatOptions: {
+					                    style: 'long',
+					                    source: {
+						                pattern: 'yyyy-MM-dd\'T\'HH:mm:ssZ'}
+				                        }}"/>
+                        </template>
+                    </Column>
+                    <Column>
+                        <m:Label text="Lieferdatum"/>
+                        <template>
+                            <m:Text text="{path:'bestellModel>lieferdatum', type:'sap.ui.model.type.Date', formatOptions: {
+					                    style: 'long',
+					                    source: {
+						                pattern: 'yyyy-MM-dd\'T\'HH:mm:ssZ'}
+				                        }}"/>
+                        </template>
+                    </Column>
+                    <Column>
+                        <m:Label text="Bestellung löschen"/>
+                        <template>
+                            <m:Button id="deleteButton" icon="sap-icon://delete" type="Reject" press="onDeleteButtonPressed"/>
+                        </template>
+                    </Column>
+                </columns>
+            </TreeTable>
+        </m:content>
+    </m:Page>
+</mvc:View>

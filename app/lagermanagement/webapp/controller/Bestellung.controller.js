@@ -32,10 +32,28 @@ sap.ui.define(
   
       return Controller.extend("at.clouddna.lagermanagement.controller.Bestellung", {
         onInit: function () {
-          //let oModel = new JSONModel({ employee_ID: null, absencetype_ID: null });
-          //this.getView().setModel(oModel, "DetailModel");
+          let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          oRouter.getRoute("Bestellung").attachPatternMatched(this.onPatternMatched, this);
         },
-  
+        onPatternMatched :function(){
+        this.getView().getModel().bindContext("/Bestellungen", null, {"$expand":"positionen($expand=produkt)"}).requestObject().then(Data =>{
+          console.log(Data);
+          this.getView().setModel(
+            new JSONModel(
+              Data.value
+            ),
+            "bestellModel"
+          );
+        });
+
+        },
+
+        getIdforPosition: function (obj){
+          if(obj != null){
+          return obj.produkt?obj.produkt.ID:obj.ID;
+          }
+        },
+
         onListItemPressed: function (oEvent) {
           let sPath = oEvent.getSource().getBindingContext().getPath();
           let oRouter = this.getOwnerComponent().getRouter();

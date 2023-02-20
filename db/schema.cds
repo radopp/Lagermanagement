@@ -26,6 +26,7 @@ entity Lieferanten : cuid {
 entity Bestellungen : cuid {
     bestelldatum : Date;
     lieferdatum : Date;
+    positionen: Association to many Bestellung_Produkt on positionen.bestellung=$self;
 }
 
 entity Bestellung_Produkt {
