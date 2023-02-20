@@ -131,11 +131,28 @@ sap.ui.define(
                 lieferdatum: oModel.getProperty("/lieferdatum")
               };
 
+              /*{
+                bestellung_ID: "guid",
+                produkt_ID: "guid",
+                anzahl: 0
+              }*/
+
               //let oListBindingContext=this.getView().getModel().bindList("/Bestellung").create(this.getView().getModel("bestellungModel"));
               let oListBindingContext = this.getView()
               .getModel()
               .bindList("/Bestellungen")
               .create(oBestellung);
+              
+              
+              let aProdukte = [];
+
+              ///----------------------------
+              
+              aProdukte.forEach((oProdukt) => {
+                this.getView().getModel().bindList("/Bestellpositionen").create(oProdukt);
+              });
+
+
 
 
           debugger;
