@@ -17,7 +17,8 @@
             columnsXL="1"
             columnsL="1"
             columnsM="1"
-            singleContainerFullSize="false">
+            singleContainerFullSize="false"
+        >
             <f:content>
                 <Label text="Bestelldatum" labelFor="edit_input_bestelldatum" />
                 <DatePicker id="bestelldatum" value="{path: 'bestellungModel>/bestelldatum', type: 'sap.ui.model.odata.type.Date'}" placeholder="Bestelldatum eingeben" change="handleChange" class="sapUiSmallMarginBottom" />
@@ -37,14 +38,14 @@
                 <HBox>
                     <VBox class="sapUiSmallMargin">
                         <Label text="Produkt" />
-                        <Select selectedKey="{path: 'bestellungModel>produktid', type: 'sap.ui.model.odata.type.Guid'}" items="{/Produkte}">
-                          <core:Item key="{ID}" text="{name}"/>
+                        <Select selectedKey="{path: 'bestellungModel>produkte', type: 'sap.ui.model.odata.type.Guid'}" items="{/Produkte}">
+                            <core:Item key="{ID}" text="{name}" />
                         </Select>
                     </VBox>
                     <VBox class="sapUiSmallMargin">
-                      <Label text="Anzahl"/>
-                      <StepInput value="{bestellungModel>anzahl}"/>
-                    </VBox >
+                        <Label text="Anzahl" />
+                        <StepInput value="{bestellungModel>anzahl}" />
+                    </VBox>
                 </HBox>
             </CustomListItem>
         </List>

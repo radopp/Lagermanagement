@@ -2,14 +2,6 @@ sap.ui.define(
     [
       "sap/ui/core/mvc/Controller",
       "sap/m/MessageBox",
-      "sap/ui/model/Sorter",
-      "sap/ui/model/Filter",
-      "sap/ui/model/FilterOperator",
-      "sap/ui/model/FilterType",
-      "sap/ui/model/json/JSONModel",
-      "sap/ui/unified/DateRange",
-      "sap/ui/core/format/DateFormat",
-      "sap/ui/core/library",
       "sap/ui/export/Spreadsheet"
     ],
     /**
@@ -18,14 +10,6 @@ sap.ui.define(
     function (
       Controller,
       MessageBox,
-      Sorter,
-      Filter,
-      FilterOperator,
-      FilterType,
-      JSONModel,
-      DateRange,
-      DateFormat,
-      coreLibrary,
       Spreadsheet,
     ) {
       "use strict";
@@ -36,41 +20,31 @@ sap.ui.define(
   
         onListItemPressed: function (oEvent) {
           let sPath = oEvent.getSource().getBindingContext().getPath();
-          let oRouter = this.getOwnerComponent().getRouter();
-          oRouter.navTo("LagerortBearbeiten", {
+          this.getOwnerComponent().getRouter().navTo("LagerortBearbeiten", {
             ID: sPath.split("(")[1].split(")")[0],
           });
         },
 
         onCreatePressed: function () {
-          let oRouter = this.getOwnerComponent().getRouter();
-          oRouter.navTo("LagerortErstellen");
+          this.getOwnerComponent().getRouter().navTo("LagerortErstellen");
         },
 
         onProduktePressed: function () {
-          let oRouter = this.getOwnerComponent().getRouter();
-          oRouter.navTo("LagerProdukte");
+          this.getOwnerComponent().getRouter().navTo("LagerProdukte");
         },
   
         onDeleteButtonPressed: function (oEvent) {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
+          let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
   
-          let oSource = oEvent.getSource();
-          let sPath = oSource.getBindingContext().getPath();
-          this.selectedBindngContext = oSource.getBindingContext();
           MessageBox.warning(
-            oResourceBundle.getText(
-              "Wollen Sie ihren Eintrag wirklich löschen?"
-            ),
+            oResourceBundle.getText("Wollen Sie ihren Eintrag wirklich löschen?"),
             {
               title: oResourceBundle.getText("Delete"),
               actions: [MessageBox.Action.YES, MessageBox.Action.NO],
               emphasizedAction: MessageBox.Action.YES,
               onClose: function (oAction) {
                 if (MessageBox.Action.YES === oAction) {
-                  this.selectedBindngContext.delete().then(
+                  oEvent.getSource().getBindingContext().delete().then(
                     function () {
                       this.getView().getModel().refresh();
                     }.bind(this)
@@ -80,6 +54,8 @@ sap.ui.define(
             }
           );
         },
+
+        
         toExcel: function () {
           var aColumns = [];
           aColumns.push({

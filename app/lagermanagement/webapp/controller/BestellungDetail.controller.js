@@ -21,9 +21,6 @@ sap.ui.define(
 
         onInit: function () {
           let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-          // oRouter
-          //   .getRoute("BestellungBearbeiten")
-          //   .attachPatternMatched(this._onPatternMatchedDetail, this);
 
           oRouter
             .getRoute("BestellungErstellen")
@@ -86,14 +83,13 @@ sap.ui.define(
           }
         },
 
-
         onNewPressed: function () {
           let oModel = this.getView().getModel("bestellungModel"),
             aItems = oModel.getProperty("/produkte");
 
           aItems.push({
             produktid: "",
-            anzahl: 1
+            anzahl: 1,
           });
 
           oModel.setProperty("/produkte", aItems);
@@ -124,45 +120,74 @@ sap.ui.define(
           );
         },
 
+        /*
+        [
+          {
+            produkt_ID: ...,
+            bestellung_ID: ...,
+            anzahl: 2
+          },
+          {
+            ...
+          },
+          ...
+        ]
+        
+        
+        */
+
         onSavePressed: function () {
           let oModel = this.getView().getModel("bestellungModel"),
-              oBestellung = { 
-                bestelldatum: oModel.getProperty("/bestelldatum"),
-                lieferdatum: oModel.getProperty("/lieferdatum"),
-                produktid: oModel.getProperty("/produkte")
-              };
-              debugger;
+            oBestellung = {
+              bestelldatum: this._formatDate(
+                oModel.getProperty("/bestelldatum")
+              ),
+              lieferdatum: this._formatDate(oModel.getProperty("/lieferdatum")),
+              //produktid: oModel.getProperty("/produkte"),
+            };
 
-              //let oListBindingContext=this.getView().getModel().bindList("/Bestellung").create(this.getView().getModel("bestellungModel"));
-              let oListBindingContext = this.getView()
+          let oContext = this.getView()
               .getModel()
               .bindList("/Bestellungen")
-              .create(oBestellung);
-              
-
-              debugger;
-              //let aProdukte = [oModel.getProperty("/produkte")];
-
-              aProdukte =
-              [{
-                bestelldatum: oBestellung.bestelldatum,
-                lieferdatum: oBestellung.lieferdatum,
-                produkt_ID: oBestellung.produkt_ID,
-                anzahl: oBestellung.anzahl,
-                
-              }]
-              
-              aProdukte.forEach((oProdukt) => {
-                this.getView().getModel().bindList("/Bestellpositionen").create(oProdukt);
-              });
-
-
-
+              .create(oBestellung),
+            oCreated;
 
           debugger;
 
-          this.onNavBack();
-          this.getView().getModel().refresh();
+          oContext
+            .created()
+            .then((oData, response) => {
+              debugger;
+              oContext;
+              let aProdukteArray = [];
+
+              oModel.getData().produkte.forEach((produkt) => {
+                aProdukteArray.push();
+
+                aProdukteArray.push(
+                  this.getView()
+                    .getModel()
+                    .bindList("/Bestellposition")
+                    .create({
+                      produkt_ID: produkt.produkte,
+                      anzahl: produkt.anzahl,
+                      bestell_ID: oContext.getProperty("ID"),
+                    })
+                    .created()
+                );
+
+                Promise.all(aProdukteArray).then(() => {
+                  this.onNavBack();
+                  this.getView().getModel().refresh();
+                });
+              });
+            })
+            .catch((oError) => {
+              debugger;
+            })
+            .finally(() => {
+              debugger;
+            });
         },
 
         onDeleteButtonPressed: function (oEvent) {
@@ -170,9 +195,15 @@ sap.ui.define(
           let oResourceBundle = this.getView()
             .getModel("i18n")
             .getResourceBundle();
-          let iSelectedIndex= parseInt(oEvent.getParameters().listItem.getBindingContextPath("bestellungModel").split("/").pop());
+          let iSelectedIndex = parseInt(
+            oEvent
+              .getParameters()
+              .listItem.getBindingContextPath("bestellungModel")
+              .split("/")
+              .pop()
+          );
           let oSource = oEvent.getSource();
-          
+
           MessageBox.warning(
             oResourceBundle.getText(
               "Wollen Sie ihren Eintrag wirklich löschen?"
@@ -183,16 +214,21 @@ sap.ui.define(
               emphasizedAction: MessageBox.Action.YES,
               onClose: function (oAction) {
                 if (MessageBox.Action.YES === oAction) {
-                let oModel=this.getView().getModel("bestellungModel");
-                let produkte=oModel.getProperty("/produkte");
-                produkte.splice(iSelectedIndex, 1)
-                oModel.setProperty("/produkte", produkte);
-                
+                  let oModel = this.getView().getModel("bestellungModel");
+                  let produkte = oModel.getProperty("/produkte");
+                  produkte.splice(iSelectedIndex, 1);
+                  oModel.setProperty("/produkte", produkte);
                 }
               }.bind(this),
             }
           );
         },
+        _formatDate: function (oDate) {
+          const offset = oDate.getTimezoneOffset();
+          oDate = new Date(oDate.getTime() - offset * 60 * 1000);
+          return oDate.toISOString().split("T")[0];
+        },
       }
-  );
-})
+    );
+  }
+);
