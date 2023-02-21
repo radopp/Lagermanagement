@@ -128,14 +128,10 @@ sap.ui.define(
           let oModel = this.getView().getModel("bestellungModel"),
               oBestellung = { 
                 bestelldatum: oModel.getProperty("/bestelldatum"),
-                lieferdatum: oModel.getProperty("/lieferdatum")
+                lieferdatum: oModel.getProperty("/lieferdatum"),
+                produktid: oModel.getProperty("/produkte")
               };
-
-              /*{
-                bestellung_ID: "guid",
-                produkt_ID: "guid",
-                anzahl: 0
-              }*/
+              debugger;
 
               //let oListBindingContext=this.getView().getModel().bindList("/Bestellung").create(this.getView().getModel("bestellungModel"));
               let oListBindingContext = this.getView()
@@ -143,10 +139,18 @@ sap.ui.define(
               .bindList("/Bestellungen")
               .create(oBestellung);
               
-              
-              let aProdukte = [];
 
-              ///----------------------------
+              debugger;
+              //let aProdukte = [oModel.getProperty("/produkte")];
+
+              aProdukte =
+              [{
+                bestelldatum: oBestellung.bestelldatum,
+                lieferdatum: oBestellung.lieferdatum,
+                produkt_ID: oBestellung.produkt_ID,
+                anzahl: oBestellung.anzahl,
+                
+              }]
               
               aProdukte.forEach((oProdukt) => {
                 this.getView().getModel().bindList("/Bestellpositionen").create(oProdukt);
