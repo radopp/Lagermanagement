@@ -1,46 +1,48 @@
 sap.ui.define(
-    [
-      "sap/ui/core/mvc/Controller",
-      "sap/m/MessageBox",
-      "sap/ui/export/Spreadsheet"
-    ],
-    /**
-     * @param {typeof sap.ui.core.mvc.Controller} Controller
-     */
-    function (
-      Controller,
-      MessageBox,
-      Spreadsheet,
-    ) {
-      "use strict";
-  
-      return Controller.extend("at.clouddna.lagermanagement.controller.Produkte", {
-        onInit: function () {
-        },
-  
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox",
+    "sap/ui/export/Spreadsheet",
+  ],
+  /**
+   * @param {typeof sap.ui.core.mvc.Controller} Controller
+   */
+  function (Controller, MessageBox, Spreadsheet) {
+    "use strict";
+
+    return Controller.extend(
+      "at.clouddna.lagermanagement.controller.Produkte",
+      {
+        onInit: function () {},
+
         onListItemPressed: function (oEvent) {
           let sPath = oEvent.getSource().getBindingContext().getPath();
-          this.getOwnerComponent().getRouter().navTo("ProdukteBearbeiten", {
-            ID: sPath.split("(")[1].split(")")[0],
-          });
+          this.getOwnerComponent()
+            .getRouter()
+            .navTo("ProdukteBearbeiten", {
+              ID: sPath.split("(")[1].split(")")[0],
+            });
         },
 
         onCreatePressed: function () {
           this.getOwnerComponent().getRouter().navTo("ProdukteErstellen");
         },
-  
+
         onDeleteButtonPressed: function (oEvent) {
-          let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
-  
+          let oResourceBundle = this.getView()
+            .getModel("i18n")
+            .getResourceBundle();
+
+          this.selectedBindngContext = oEvent.getSource().getBindingContext();
           MessageBox.warning(
-            oResourceBundle.getText("Wollen Sie ihren Eintrag wirklich löschen?"),
+            oResourceBundle.getText("Wollen Sie das Produkt wirkich löschen??"),
             {
               title: oResourceBundle.getText("Delete"),
               actions: [MessageBox.Action.YES, MessageBox.Action.NO],
               emphasizedAction: MessageBox.Action.YES,
               onClose: function (oAction) {
                 if (MessageBox.Action.YES === oAction) {
-                  oEvent.getSource().getBindingContext().delete().then(
+                  this.selectedBindngContext.delete().then(
                     function () {
                       this.getView().getModel().refresh();
                     }.bind(this)
@@ -50,50 +52,51 @@ sap.ui.define(
             }
           );
         },
-        
+
         toExcel: function () {
           var aColumns = [];
           aColumns.push({
-              label: "Produktname",
-              property: "name"
+            label: "Produktname",
+            property: "name",
           });
           aColumns.push({
-              label: "Lastname",
-              property: "beschreibung"
+            label: "Lastname",
+            property: "beschreibung",
           });
           aColumns.push({
-              label: "Anzahl",
-              property: "anzahl"
+            label: "Anzahl",
+            property: "anzahl",
           });
           aColumns.push({
             label: "Einkaufspreis",
-            property: "einkaufspreis"
+            property: "einkaufspreis",
           });
           aColumns.push({
             label: "Währung",
-            property: "waehrung/name"
+            property: "waehrung/name",
           });
-        
+
           var mSettings = {
             workbook: {
               columns: aColumns,
               context: {
-                application: 'Debug Test Application',
-                version: '1.105.0',
-                title: 'Produkte',
+                application: "Debug Test Application",
+                version: "1.105.0",
+                title: "Produkte",
               },
-              hierarchyLevel: 'level'
+              hierarchyLevel: "level",
             },
             dataSource: {
               type: "odata",
               dataUrl: `/Lagerverwaltung/Produkt?$expand=waehrung`,
-              serviceUrl: ""
+              serviceUrl: "",
             },
-            fileName: "Produkte.xlsx"
+            fileName: "Produkte.xlsx",
           };
           var oSpreadsheet = new Spreadsheet(mSettings);
           oSpreadsheet.build();
         },
-      });
-    }
-  );
+      }
+    );
+  }
+);

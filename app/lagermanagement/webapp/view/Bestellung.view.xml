@@ -1,4 +1,4 @@
-<mvc:View controllerName="at.clouddna.lagermanagement.controller.Bestellung" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" height="100%">
+<!-- <mvc:View controllerName="at.clouddna.lagermanagement.controller.Bestellung" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" height="100%">
     <m:Page showHeader="false" enableScrolling="false">
         <m:content>
             <TreeTable selectionMode="None" id="TreeTableBasic" rows="{path:'bestellModel>/', parameters:{arrayNames:['positionen']}}" enableSelectAll="false" ariaLabelledBy="title">
@@ -58,4 +58,52 @@
             </TreeTable>
         </m:content>
     </m:Page>
+</mvc:View> -->
+<mvc:View id="Lieferant" controllerName="at.clouddna.lagermanagement.controller.Bestellung" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns="sap.m" class="viewPadding">
+    <Page id="page" title="Bestellungen">
+        <content>
+            <HBox>
+                <Table id="bestellungen_table" headerText="Bestellungen" items="{path:'/Bestellposition'}">
+                    <headerToolbar>
+                        <OverflowToolbar id="_IDGenOverflowToolbar1">
+                            <Title id="_IDGenTitle1" text="Bestellungen" />
+                            <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                            <Button icon="sap-icon://download" press="toExcel" />
+                            <Button text="neuen Eintrag erstellen" type="Accept" press="onCreatePressed" />
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column>
+                            <Text text="Produkte" />
+                        </Column>
+                        <Column>
+                            <Text text="Anzahl" />
+                        </Column>
+                        <Column>
+                            <Text text="Bestelldatum" />
+                        </Column>
+                        <Column>
+                            <Text text="Lieferdatum" />
+                        </Column>
+                        <Column>
+                            <Text text="Bestellung löschen" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem id="listEntries" type="Navigation" press="onListItemPressed">
+                            <cells>
+                                <Text text="{produkt/name}" />
+                                <Text text="{anzahl}" />
+                                <Text text="{bestellung/bestelldatum}" />
+                                <Text text="{bestellung/lieferdatum}" />
+                                <HBox>
+                                    <Button id="deleteButton" icon="sap-icon://delete" type="Reject" press="onDeleteButtonPressed" />
+                                </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </HBox>
+        </content>
+    </Page>
 </mvc:View>
