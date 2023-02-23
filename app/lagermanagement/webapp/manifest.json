@@ -170,6 +170,11 @@
                     "target": "TargetBestellungDetail"
                 },
                 {
+                    "name": "BestellungBearbeiten",
+                    "pattern": "BestellungBearbeiten",
+                    "target": "TargetBestellungDetail"
+                },
+                {
                     "name": "KaufProdukt",
                     "pattern": "KaufProdukt",
                     "target": "TargetKaufProdukt"

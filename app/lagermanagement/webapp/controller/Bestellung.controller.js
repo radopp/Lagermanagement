@@ -34,6 +34,7 @@ sap.ui.define(
                 "bestellModel"
               );
             });
+          debugger;
         },
 
         getIdforPosition: function (obj) {

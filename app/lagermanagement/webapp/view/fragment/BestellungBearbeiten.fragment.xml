@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+    <VBox>
+        <!-- <HBox>
+                    <Text text="Produkt/e" />
+                    <Text text="{bestellungModel/name}" />
+                    <Text text="Anzahl" />
+                    <Text text="{bestellungModel/anzahl}" />
+                </HBox>
+                <HBox>
+                    <Text text="Bestelldatum" />
+                    <Text text="{bestellungModel>/bestelldatum}" />
+                </HBox>
+                <HBox>
+                    <Text text="Lieferdatum" />
+                    <Text text="{bestellungModel>/lieferdatum}" />
+                </HBox> -->
+        <Table id="bestellungenanzeigen_table" headerText="Bestellungen" items="{path:'/Bestellposition'}">
+            <headerToolbar>
+                <OverflowToolbar id="_IDGenOverflowToolbar1">
+                    <Title id="_IDGenTitle1" text="Bestellungen anzeigen" />
+                    <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                    <Button icon="sap-icon://download" press="toExcel" />
+                </OverflowToolbar>
+            </headerToolbar>
+            <columns>
+                <Column>
+                    <Text text="Produkt/e" />
+                </Column>
+                <Column>
+                    <Text text="Anzahl" />
+                </Column>
+                <Column>
+                    <Text text="Bestelldatum" />
+                </Column>
+                <Column>
+                    <Text text="Lieferdatum" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem id="listEntries">
+                    <cells>
+                        <Text text="{bestellModel>/positionen/produkt_ID}" />
+                        <Text text="{bestellModel>/positionen/anzahl}" />
+                        <Text text="{bestellModel>bestelldatum}" />
+                        <Text text="{bestellModel>lieferdatum}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </VBox>
+</core:FragmentDefinition>

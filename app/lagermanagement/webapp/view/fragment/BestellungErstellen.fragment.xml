@@ -21,9 +21,9 @@
         >
             <f:content>
                 <Label text="Bestelldatum" labelFor="edit_input_bestelldatum" />
-                <DatePicker id="bestelldatum" value="{path: 'bestellung/bestelldatum', type: 'sap.ui.model.odata.type.Date'}" placeholder="Bestelldatum eingeben" change="handleChange" class="sapUiSmallMarginBottom" />
+                <DatePicker id="bestelldatum" dateValue="{path: 'bestellungModel>/bestelldatum'}" placeholder="Bestelldatum eingeben" class="sapUiSmallMarginBottom" />
                 <Label text="Lieferdatum" labelFor="edit_input_lieferdatum" />
-                <DatePicker id="lieferdatum" value="{path: 'bestellungen/lieferdatum', type: 'sap.ui.model.odata.type.Date'}" placeholder="Lieferdatum eingeben" change="handleChange" class="sapUiSmallMarginBottom" />
+                <DatePicker id="lieferdatum" dateValue="{path: 'bestellungModel>/lieferdatum'}" placeholder="Lieferdatum eingeben" class="sapUiSmallMarginBottom" />
             </f:content>
         </f:SimpleForm>
         <List mode="Delete" delete="onDeleteButtonPressed" headerText="Custom Content" items="{path: 'bestellungModel>/produkte'}">
@@ -38,13 +38,13 @@
                 <HBox>
                     <VBox class="sapUiSmallMargin">
                         <Label text="Produkt" />
-                        <Select selectedKey="{path: 'produkte/name', type: 'sap.ui.model.odata.type.Guid'}" items="{/Produkte}">
+                        <Select selectedKey="{path: 'bestellungModel>name', type: 'sap.ui.model.odata.type.Guid'}" items="{/Produkte}">
                             <core:Item key="{ID}" text="{name}" />
                         </Select>
                     </VBox>
                     <VBox class="sapUiSmallMargin">
                         <Label text="Anzahl" />
-                        <StepInput value="{anzahl}" />
+                        <StepInput value="{bestellungModel>anzahl}" />
                     </VBox>
                 </HBox>
             </CustomListItem>

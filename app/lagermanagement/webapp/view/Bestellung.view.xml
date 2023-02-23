@@ -63,7 +63,7 @@
     <Page id="page" title="Bestellungen">
         <content>
             <HBox>
-                <Table id="bestellungen_table" headerText="Bestellungen" items="{path:'/Bestellposition'}">
+                <Table id="bestellungen_table" headerText="Bestellungen" items="{path:'/Bestellungen'}">
                     <headerToolbar>
                         <OverflowToolbar id="_IDGenOverflowToolbar1">
                             <Title id="_IDGenTitle1" text="Bestellungen" />
@@ -73,12 +73,6 @@
                         </OverflowToolbar>
                     </headerToolbar>
                     <columns>
-                        <Column>
-                            <Text text="Produkte" />
-                        </Column>
-                        <Column>
-                            <Text text="Anzahl" />
-                        </Column>
                         <Column>
                             <Text text="Bestelldatum" />
                         </Column>
@@ -92,10 +86,8 @@
                     <items>
                         <ColumnListItem id="listEntries" type="Navigation" press="onListItemPressed">
                             <cells>
-                                <Text text="{produkt/name}" />
-                                <Text text="{anzahl}" />
-                                <Text text="{bestellung/bestelldatum}" />
-                                <Text text="{bestellung/lieferdatum}" />
+                                <Text text="{bestelldatum}" />
+                                <Text text="{lieferdatum}" />
                                 <HBox>
                                     <Button id="deleteButton" icon="sap-icon://delete" type="Reject" press="onDeleteButtonPressed" />
                                 </HBox>
