@@ -28,13 +28,11 @@ sap.ui.define(
             })
             .requestObject()
             .then((Data) => {
-              console.log(Data);
               this.getView().setModel(
                 new JSONModel(Data.value),
                 "bestellModel"
               );
             });
-          debugger;
         },
 
         getIdforPosition: function (obj) {

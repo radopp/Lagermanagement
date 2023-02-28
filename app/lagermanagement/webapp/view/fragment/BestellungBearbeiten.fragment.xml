@@ -1,20 +1,16 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
     <VBox>
-        <!-- <HBox>
-                    <Text text="Produkt/e" />
-                    <Text text="{bestellungModel/name}" />
-                    <Text text="Anzahl" />
-                    <Text text="{bestellungModel/anzahl}" />
-                </HBox>
-                <HBox>
-                    <Text text="Bestelldatum" />
-                    <Text text="{bestellungModel>/bestelldatum}" />
-                </HBox>
-                <HBox>
-                    <Text text="Lieferdatum" />
-                    <Text text="{bestellungModel>/lieferdatum}" />
-                </HBox> -->
-        <Table id="bestellungenanzeigen_table" headerText="Bestellungen" items="{path:'/Bestellposition'}">
+        <List items="{path:'positionen', parameters:{'$expand':'produkt'}}">
+            <ObjectListItem title="{produkt/name}" type="Active" press="onListItemPress" number="{
+				parts:[{path:'produkt/preis'},'EUR'],
+				type: 'sap.ui.model.type.Currency',
+				formatOptions: {showMeasure: false}
+			}" numberUnit="EUR">
+                <ObjectAttribute text="{anzahl}x" />
+            </ObjectListItem>
+        </List>
+
+        <!-- <Table id="bestellungenanzeigen_table" headerText="Bestellungen" items="{path:'/Bestellposition'}">
             <headerToolbar>
                 <OverflowToolbar id="_IDGenOverflowToolbar1">
                     <Title id="_IDGenTitle1" text="Bestellungen anzeigen" />
@@ -46,6 +42,6 @@
                     </cells>
                 </ColumnListItem>
             </items>
-        </Table>
+        </Table> -->
     </VBox>
 </core:FragmentDefinition>

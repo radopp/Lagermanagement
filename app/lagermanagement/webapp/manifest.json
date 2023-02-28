@@ -171,13 +171,18 @@
                 },
                 {
                     "name": "BestellungBearbeiten",
-                    "pattern": "BestellungBearbeiten",
+                    "pattern": "BestellungBearbeiten/{ID}",
                     "target": "TargetBestellungDetail"
                 },
                 {
-                    "name": "KaufProdukt",
-                    "pattern": "KaufProdukt",
-                    "target": "TargetKaufProdukt"
+                    "name": "LagerProdukteErstellen",
+                    "pattern": "LagerProdukteErstellen",
+                    "target": "TargetLagerProdukteDetail"
+                },
+                {
+                    "name": "LagerProdukteBearbeiten",
+                    "pattern": "LagerProdukteBearbeiten/{ID}",
+                    "target": "TargetLagerProdukteDetail"
                 }
             ],
             "targets": {
@@ -251,12 +256,12 @@
                         "viewId": "BestellungDetail",
                         "viewName": "BestellungDetail"
                 },
-                    "TargetKaufProdukt": {
+                    "TargetLagerProdukteDetail": {
                         "viewType": "XML",
                         "transition": "slide",
                         "clearControlAggregation": false,
-                        "viewId": "KaufProdukt",
-                        "viewName": "KaufProdukt"
+                        "viewId": "LagerProdukteDetail",
+                        "viewName": "LagerProdukteDetail"
                 }
             }
         },

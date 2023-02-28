@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+    <f:SimpleForm
+        id="SimpleFormChange354"
+        editable="true"
+        layout="ResponsiveGridLayout"
+        title="Lagerort erstellen"
+        labelSpanXL="3"
+        labelSpanL="3"
+        labelSpanM="3"
+        labelSpanS="12"
+        adjustLabelSpan="false"
+        emptySpanXL="4"
+        emptySpanL="4"
+        emptySpanM="4"
+        emptySpanS="0"
+        columnsXL="1"
+        columnsL="1"
+        columnsM="1"
+        singleContainerFullSize="false"
+    >
+        <Label text="Lager Name" labelFor="edit_input_lagername" />
+        <Text text="{lager/name}" />
+        <Label text="Lagerort" labelFor="edit_input_lagerort" />
+        <Text text="{lager/ort}" />
+        <!-- <Label text="Produkt" />
+        <ActionSelect selectedKey="{produkte_ID}" forceSelection="false" items="{
+			        path: '/Produkte',
+			        sorter: { path:'name'}
+			        }">
+            <items>
+                <core:Item text="{name}" key="{ID}"/>
+            </items>
+        </ActionSelect> -->
+        <Label text="Produkt" />
+        <Select selectedKey="{path: 'produkt/name'}" items="{/Produkte}">
+            <core:Item key="{ID}" text="{name}" />
+        </Select>
+        <Label text="Menge" wrapping="true" />
+        <VBox>
+            <StepInput value="{menge}" change="onChange" />
+        </VBox>
+        <f:content />
+    </f:SimpleForm>
+</core:FragmentDefinition>
