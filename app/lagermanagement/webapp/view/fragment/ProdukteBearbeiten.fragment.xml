@@ -3,7 +3,7 @@
         id="SimpleFormChange354"
         editable="true"
         layout="ResponsiveGridLayout"
-        title="Produkt bearbeiten"
+        title="{i18n>title.ProduktBearbeiten}"
         labelSpanXL="3"
         labelSpanL="3"
         labelSpanM="3"
@@ -19,27 +19,27 @@
         singleContainerFullSize="false"
     >
         <f:content>
-            <Label text="Produktname" labelFor="edit_input_produktname" />
+            <Label text="{i18n>produkte.Produkt}" labelFor="edit_input_produktname" />
             <Input value="{name}" />
-            <Label text="Produktbeschreibung" labelFor="edit_input_produktbeschreibung" />
+            <Label text="{i18n>produkte.Produktbeschreibung}" labelFor="edit_input_produktbeschreibung" />
             <Input value="{beschreibung}" />
-            <Label text="Preis" wrapping="true" />
+            <Label text="{i18n>produkte.price}" wrapping="true" />
             <VBox>
                 <StepInput value="{preis}" change="onChange" />
             </VBox>
-            <Label text="Mindestbestand" wrapping="true" />
+            <Label text="{i18n>produkte.Mindestbestand}" wrapping="true" />
             <VBox>
                 <StepInput value="{mindestbestand}" change="onChange" />
             </VBox>
-            <Label text="Mengeok" wrapping="true" />
+            <Label text="{i18n>produkte.Mengeok}" wrapping="true" />
             <VBox>
                 <StepInput value="{mengeok}" change="onChange" />
             </VBox>
-            <Label text="Mengewarnung" wrapping="true" />
+            <Label text="{i18n>produkte.Mengewarnung}" wrapping="true" />
             <VBox>
                 <StepInput value="{mengewarnung}" change="onChange" />
             </VBox>
-            <Label text="Lieferant" labelFor="edit_input_lieferant" />
+            <Label text="{i18n>produkte.Lieferanten}" labelFor="edit_input_lieferant" />
             <ActionSelect selectedKey="{lieferant_ID}" forceSelection="false" items="{
 			        path: '/Lieferanten',
 			        sorter: { path:'name'}

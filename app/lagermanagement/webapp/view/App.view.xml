@@ -1,22 +1,14 @@
-<mvc:View controllerName="at.clouddna.lagermanagement.controller.App"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <SplitApp
-        id="pages">
-        <detailPages>
-            
-        </detailPages>
+<mvc:View controllerName="at.clouddna.lagermanagement.controller.App" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+    <SplitApp id="pages">
+        <detailPages />
         <masterPages>
-            <Page
-                id="menu"
-                title="Menu"
-                backgroundDesign="List">
+            <Page id="menu" title="{i18n>title.Menu}" backgroundDesign="List">
                 <List itemPress="_onListItemPressed">
                     <items>
-                    <StandardListItem id="produkte_ID" title="Produkte" type="Active" />
-                    <StandardListItem id="lieferant_ID" title="Lieferant" type="Active" />
-                    <StandardListItem id="lagerorte_ID" title="Lagerorte" type="Active" />
-                    <StandardListItem id="bestellungen_ID" title="Bestellungen" type="Active" />
+                        <StandardListItem id="produkte_ID" title="{i18n>menu.Produkte}" type="Active" />
+                        <StandardListItem id="lieferant_ID" title="{i18n>menu.Lieferant}" type="Active" />
+                        <StandardListItem id="lagerorte_ID" title="{i18n>menu.Lagerorte}" type="Active" />
+                        <StandardListItem id="bestellungen_ID" title="{i18n>menu.Bestellungen}" type="Active" />
                     </items>
                 </List>
             </Page>

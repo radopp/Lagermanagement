@@ -1,31 +1,31 @@
 <mvc:View id="Lager Produkte" controllerName="at.clouddna.lagermanagement.controller.LagerProdukte" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns="sap.m" class="viewPadding">
-    <Page id="page" title="Lager Produkte">
+    <Page id="page" title="{i18n>global.Title}">
         <content>
             <HBox>
-                <Table id="produkte_table" headerText="Lager Produkte" items="{path:'/Lagerbestand'}">
+                <Table id="LagerProdukte_table" items="{path:'/Lagerbestand'}">
                     <headerToolbar>
                         <OverflowToolbar id="_IDGenOverflowToolbar1">
-                            <Title id="_IDGenTitle1" text="Lager Produkte" />
+                            <Title id="_IDGenTitle1" text="{i18n>lagerort.LagerProdukte}" />
                             <ToolbarSpacer id="_IDGenToolbarSpacer1" />
                             <Button icon="sap-icon://download" press="toExcel" />
-                            <Button text="neuen Eintrag erstellen" type="Accept" press="onCreatePressed" />
+                            <Button text="{i18n>button.neuenEintragErstellen}" type="Accept" press="onCreatePressed" />
                         </OverflowToolbar>
                     </headerToolbar>
                     <columns>
                         <Column>
-                            <Text text="Lager Name" />
+                            <Text text="{i18n>lagerort.LagerName}" />
                         </Column>
                         <Column>
-                            <Text text="Lager Ort" />
+                            <Text text="{i18n>lagerort.Lagerort}" />
                         </Column>
                         <Column>
-                            <Text text="Produkt" />
+                            <Text text="{i18n>lagerort.Produkt}" />
                         </Column>
                         <Column>
-                            <Text text="Anzahl" />
+                            <Text text="{i18n>lagerort.Anzahl}" />
                         </Column>
                         <Column>
-                            <Text text="Löschen" />
+                            <Text text="{i18n>global.Button}" />
                         </Column>
                     </columns>
                     <items>

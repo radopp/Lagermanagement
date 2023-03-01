@@ -10,13 +10,12 @@
     xmlns:main="sap.ui.webc.fiori"
     height="100%"
 >
-    <Page id="lagerProdukte_page" title="Produkte im Lager">
+    <Page id="lagerProdukte_page" title="{i18n>global.Title}">
         <content />
         <footer>
             <Bar>
                 <contentRight>
-                    <Button id="btnSave" text="save" type="Accept" icon="sap-icon://save" press="onSavePressed" visible="{editModel>/editmode}" />
-                    <Button id="btnDelete" text="delete" type="Reject" icon="sap-icon://delete" press="onDeleteButtonPressed" visible="{editModel>/editmode}" />
+                    <Button id="btnSave" text="{i18n>button.Save}" type="Accept" icon="sap-icon://save" press="onSavePressed" visible="{editModel>/editmode}" />
                 </contentRight>
             </Bar>
         </footer>

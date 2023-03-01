@@ -67,25 +67,20 @@ sap.ui.define(
             .getResourceBundle();
 
           this.selectedBindngContext = oEvent.getSource().getBindingContext();
-          MessageBox.warning(
-            oResourceBundle.getText(
-              "Wollen Sie den Lager Eintrag wirklich löschen?"
-            ),
-            {
-              title: oResourceBundle.getText("Delete"),
-              actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-              emphasizedAction: MessageBox.Action.YES,
-              onClose: function (oAction) {
-                if (MessageBox.Action.YES === oAction) {
-                  this.selectedBindngContext.delete().then(
-                    function () {
-                      this.getView().getModel().refresh();
-                    }.bind(this)
-                  );
-                }
-              }.bind(this),
-            }
-          );
+          MessageBox.warning(oResourceBundle.getText("delete.LagerProdukt"), {
+            title: oResourceBundle.getText("delete.Delete"),
+            actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+            emphasizedAction: MessageBox.Action.YES,
+            onClose: function (oAction) {
+              if (MessageBox.Action.YES === oAction) {
+                this.selectedBindngContext.delete().then(
+                  function () {
+                    this.getView().getModel().refresh();
+                  }.bind(this)
+                );
+              }
+            }.bind(this),
+          });
         },
       }
     );

@@ -3,7 +3,7 @@
         id="SimpleFormChange354"
         editable="true"
         layout="ResponsiveGridLayout"
-        title="Lagerort erstellen"
+        title="{i18n>title.LagerErstellen}"
         labelSpanXL="3"
         labelSpanL="3"
         labelSpanM="3"
@@ -19,9 +19,9 @@
         singleContainerFullSize="false"
     >
         <f:content>
-            <Label text="Lager Name" labelFor="edit_input_lieferant" />
+            <Label text="{i18n>lagerort.LagerName}" labelFor="edit_input_lieferant" />
             <Input value="{name}" />
-            <Label text="Lagerort" labelFor="edit_input_lieferant" />
+            <Label text="{i18n>lagerort.Lagerort}" labelFor="edit_input_lieferant" />
             <Input value="{ort}" />
         </f:content>
     </f:SimpleForm>

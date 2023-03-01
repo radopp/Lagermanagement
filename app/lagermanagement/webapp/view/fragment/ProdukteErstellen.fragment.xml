@@ -3,7 +3,7 @@
         id="SimpleFormChange354"
         editable="true"
         layout="ResponsiveGridLayout"
-        title="Produkt erstellen"
+        title="{i18n>title.ProduktErstellen}"
         labelSpanXL="3"
         labelSpanL="3"
         labelSpanM="3"
@@ -19,26 +19,25 @@
         singleContainerFullSize="false"
     >
         <f:content>
-            <Label text="Produktname" labelFor="edit_input_produktname" />
+            <Label text="{i18n>produkte.Produkt}" labelFor="edit_input_produktname" />
             <Input value="{name}" />
-            <Label text="Produktbeschreibung" labelFor="edit_input_produktbeschreibung" />
+            <Label text="{i18n>produkte.Produktbeschreibung}" labelFor="edit_input_produktbeschreibung" />
             <Input value="{beschreibung}" />
-            <Label text="Preis" labelFor="edit_input_preis" />
+            <Label text="{i18n>produkte.Preis}" labelFor="edit_input_preis" />
             <Input value="{preis}" width="40%" description="EUR" />
-            <Label text="Preis" wrapping="true" />
-            <Label text="Mindestbestand" wrapping="true" />
+            <Label text="{i18n>produkte.Mindestbestand}" wrapping="true" />
             <VBox>
                 <StepInput value="{mindestbestand}" change="onChange" />
             </VBox>
-            <Label text="Mengeok" wrapping="true" />
+            <Label text="{i18n>produkte.Mengeok}" wrapping="true" />
             <VBox>
                 <StepInput value="{mengeok}" change="onChange" />
             </VBox>
-            <Label text="Mengewarnung" wrapping="true" />
+            <Label text="{i18n>produkte.Mengewarnung}" wrapping="true" />
             <VBox>
                 <StepInput value="{mengewarnung}" change="onChange" />
             </VBox>
-            <Label text="Lieferant" wrapping="true" />
+            <Label text="{i18n>produkte.Lieferanten}" wrapping="true" />
             <ActionSelect selectedKey="{lieferant_ID}" forceSelection="false" items="{
 			        path: '/Lieferanten',
 			        sorter: { path:'name'}

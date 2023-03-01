@@ -3,7 +3,7 @@
         id="SimpleFormChange354"
         editable="true"
         layout="ResponsiveGridLayout"
-        title="Produkt bearbeiten"
+        title="{i18n>title.LagerProdukteBearbeiten}"
         labelSpanXL="3"
         labelSpanL="3"
         labelSpanM="3"
@@ -19,13 +19,13 @@
         singleContainerFullSize="false"
     >
         <f:content>
-            <Label text="Lager Name" labelFor="edit_input_lagername" />
+            <Label text="{i18n>lagerort.LagerName}" labelFor="edit_input_lagername" />
             <Text text="{lager/name}" />
-            <Label text="Lagerort" labelFor="edit_input_lagerort" />
+            <Label text="{i18n>lagerort.Lagerort}" labelFor="edit_input_lagerort" />
             <Text text="{lager/ort}" />
-            <Label text="Produkt" labelFor="edit_input_lagerProdukt" />
+            <Label text="{i18n>lagerort.Produkt}" labelFor="edit_input_lagerProdukt" />
             <Text text="{produkt/name}" />
-            <Label text="Menge" wrapping="true" />
+            <Label text="{i18n>lagerort.Anzahl}" wrapping="true" />
             <VBox>
                 <StepInput value="{menge}" change="onChange" />
             </VBox>

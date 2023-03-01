@@ -4,7 +4,7 @@
             id="SimpleFormChange354"
             editable="true"
             layout="ResponsiveGridLayout"
-            title="Bestellung erstellen"
+            title="{i18n>title.BestellungErstellen}"
             labelSpanXL="3"
             labelSpanL="3"
             labelSpanM="3"
@@ -20,16 +20,16 @@
             singleContainerFullSize="false"
         >
             <f:content>
-                <Label text="Bestelldatum" labelFor="edit_input_bestelldatum" />
+                <Label text="{i18n>bestellung.Bestelldatum}" labelFor="edit_input_bestelldatum" />
                 <DatePicker id="bestelldatum" dateValue="{path: 'bestellungModel>/bestelldatum'}" placeholder="Bestelldatum eingeben" class="sapUiSmallMarginBottom" />
-                <Label text="Lieferdatum" labelFor="edit_input_lieferdatum" />
+                <Label text="{i18n>bestellung.Lieferdatum}" labelFor="edit_input_lieferdatum" />
                 <DatePicker id="lieferdatum" dateValue="{path: 'bestellungModel>/lieferdatum'}" placeholder="Lieferdatum eingeben" class="sapUiSmallMarginBottom" />
             </f:content>
         </f:SimpleForm>
         <List mode="Delete" delete="onDeleteButtonPressed" headerText="Custom Content" items="{path: 'bestellungModel>/produkte'}">
             <headerToolbar>
                 <OverflowToolbar>
-                    <Title text="Produkte" />
+                    <Title text="{i18n>menu.Produkte}" />
                     <ToolbarSpacer />
                     <Button id="new" type="Transparent" icon="sap-icon://add" press="onNewPressed" visible="{editModel>/editmode}" />
                 </OverflowToolbar>
@@ -37,13 +37,13 @@
             <CustomListItem>
                 <HBox>
                     <VBox class="sapUiSmallMargin">
-                        <Label text="Produkt" />
+                        <Label text="{i18n>bestellung.Produkt}" />
                         <Select selectedKey="{path: 'bestellungModel>name', type: 'sap.ui.model.odata.type.Guid'}" items="{/Produkte}">
                             <core:Item key="{ID}" text="{name}" />
                         </Select>
                     </VBox>
                     <VBox class="sapUiSmallMargin">
-                        <Label text="Anzahl" />
+                        <Label text="{i18n>bestellung.Anzahl}" />
                         <StepInput value="{bestellungModel>anzahl}" />
                     </VBox>
                 </HBox>

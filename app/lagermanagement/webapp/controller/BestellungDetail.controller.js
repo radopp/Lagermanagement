@@ -167,38 +167,6 @@ sap.ui.define(
             .finally(() => {});
         },
 
-        onDeleteButtonPressed: function (oEvent) {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-          let iSelectedIndex = parseInt(
-            oEvent
-              .getParameters()
-              .listItem.getBindingContextPath("bestellungModel")
-              .split("/")
-              .pop()
-          );
-          let oSource = oEvent.getSource();
-
-          MessageBox.warning(
-            oResourceBundle.getText(
-              "Wollen Sie ihren Eintrag wirklich löschen?"
-            ),
-            {
-              title: oResourceBundle.getText("Delete"),
-              actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-              emphasizedAction: MessageBox.Action.YES,
-              onClose: function (oAction) {
-                if (MessageBox.Action.YES === oAction) {
-                  let oModel = this.getView().getModel("bestellungModel");
-                  let produkte = oModel.getProperty("/produkte");
-                  produkte.splice(iSelectedIndex, 1);
-                  oModel.setProperty("/produkte", produkte);
-                }
-              }.bind(this),
-            }
-          );
-        },
         _formatDate: function (oDate) {
           const offset = oDate.getTimezoneOffset();
           oDate = new Date(oDate.getTime() - offset * 60 * 1000);

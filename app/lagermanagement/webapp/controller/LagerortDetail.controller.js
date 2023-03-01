@@ -101,33 +101,6 @@ sap.ui.define(
           this.onNavBack();
           this.getView().getModel().refresh();
         },
-
-        onDeleteButtonPressed: function (oEvent) {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
-          this.selectedBindngContext = oEvent.getSource().getBindingContext();
-          MessageBox.warning(
-            oResourceBundle.getText(
-              "Wollen SIe den LAgerort wirklich löschen?"
-            ),
-            {
-              title: oResourceBundle.getText("Delete"),
-              actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-              emphasizedAction: MessageBox.Action.YES,
-              onClose: function (oAction) {
-                if (MessageBox.Action.YES === oAction) {
-                  this.selectedBindngContext.delete().then(
-                    function () {
-                      this.getView().getModel().refresh();
-                    }.bind(this)
-                  );
-                }
-              }.bind(this),
-            }
-          );
-        },
       }
     );
   }
