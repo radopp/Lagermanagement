@@ -2,46 +2,12 @@
     <VBox>
         <List items="{path:'positionen', parameters:{'$expand':'produkt'}}">
             <ObjectListItem title="{produkt/name}" type="Active" press="onListItemPress" number="{
-				parts:[{path:'produkt/preis'},'EUR'],
+				parts:[{path:'produkt/preis'}],
 				type: 'sap.ui.model.type.Currency',
 				formatOptions: {showMeasure: false}
 			}" numberUnit="EUR">
                 <ObjectAttribute text="{anzahl}x" />
             </ObjectListItem>
         </List>
-
-        <!-- <Table id="bestellungenanzeigen_table" headerText="Bestellungen" items="{path:'/Bestellposition'}">
-            <headerToolbar>
-                <OverflowToolbar id="_IDGenOverflowToolbar1">
-                    <Title id="_IDGenTitle1" text="Bestellungen anzeigen" />
-                    <ToolbarSpacer id="_IDGenToolbarSpacer1" />
-                    <Button icon="sap-icon://download" press="toExcel" />
-                </OverflowToolbar>
-            </headerToolbar>
-            <columns>
-                <Column>
-                    <Text text="Produkt/e" />
-                </Column>
-                <Column>
-                    <Text text="Anzahl" />
-                </Column>
-                <Column>
-                    <Text text="Bestelldatum" />
-                </Column>
-                <Column>
-                    <Text text="Lieferdatum" />
-                </Column>
-            </columns>
-            <items>
-                <ColumnListItem id="listEntries">
-                    <cells>
-                        <Text text="{bestellModel>/positionen/produkt_ID}" />
-                        <Text text="{bestellModel>/positionen/anzahl}" />
-                        <Text text="{bestellModel>bestelldatum}" />
-                        <Text text="{bestellModel>lieferdatum}" />
-                    </cells>
-                </ColumnListItem>
-            </items>
-        </Table> -->
     </VBox>
 </core:FragmentDefinition>

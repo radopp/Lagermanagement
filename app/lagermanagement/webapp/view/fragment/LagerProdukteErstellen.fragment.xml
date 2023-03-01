@@ -18,27 +18,24 @@
         columnsM="1"
         singleContainerFullSize="false"
     >
-        <Label text="Lager Name" labelFor="edit_input_lagername" />
-        <Text text="{lager/name}" />
-        <Label text="Lagerort" labelFor="edit_input_lagerort" />
-        <Text text="{lager/ort}" />
-        <!-- <Label text="Produkt" />
-        <ActionSelect selectedKey="{produkte_ID}" forceSelection="false" items="{
+        <f:content>
+            <Label text="Lager Name" labelFor="edit_input_lagername" />
+            <Text text="{lagerModel>/name}" />
+            <Label text="Lagerort" labelFor="edit_input_lagerort" />
+            <Text text="{lagerModel>/ort}" />
+            <Label text="Produkt" labelFor="edit_input_lagerProdukt" />
+            <ActionSelect selectedKey="{produkt_ID}" forceSelection="false" items="{
 			        path: '/Produkte',
 			        sorter: { path:'name'}
 			        }">
-            <items>
-                <core:Item text="{name}" key="{ID}"/>
-            </items>
-        </ActionSelect> -->
-        <Label text="Produkt" />
-        <Select selectedKey="{path: 'produkt/name'}" items="{/Produkte}">
-            <core:Item key="{ID}" text="{name}" />
-        </Select>
-        <Label text="Menge" wrapping="true" />
-        <VBox>
-            <StepInput value="{menge}" change="onChange" />
-        </VBox>
-        <f:content />
+                <items>
+                    <core:Item text="{name}" key="{ID}" />
+                </items>
+            </ActionSelect>
+            <Label text="Menge" wrapping="true" />
+            <VBox>
+                <StepInput value="{menge}" change="onChange" />
+            </VBox>
+        </f:content>
     </f:SimpleForm>
 </core:FragmentDefinition>

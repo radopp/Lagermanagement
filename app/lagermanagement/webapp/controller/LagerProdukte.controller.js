@@ -33,11 +33,24 @@ sap.ui.define(
     return Controller.extend(
       "at.clouddna.lagermanagement.controller.LagerProdukte",
       {
-        onInit: function () {},
+        onInit: function () {
+          let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          oRouter
+            .getRoute("LagerProdukte")
+            .attachPatternMatched(this.onPatternMatched, this);
+        },
+
+        onPatternMatched: function (oEvent) {
+          this.oLagerID = oEvent.getParameter("arguments").lagerID;
+          this.getView()
+            .byId("produkte_table")
+            .getBinding("items")
+            .filter(new Filter("lager_ID", FilterOperator.EQ, this.oLagerID));
+        },
 
         onCreatePressed: function () {
           let oRouter = this.getOwnerComponent().getRouter();
-          oRouter.navTo("LagerProdukteErstellen");
+          oRouter.navTo("LagerProdukteErstellen", { lagerID: this.oLagerID });
         },
 
         onListItemPressed: function (oEvent) {
@@ -74,19 +87,6 @@ sap.ui.define(
             }
           );
         },
-
-        //   onFilter : function(){
-        //     let oModel =this.getView().getModel("filterModel");
-        //     let oFilterData = oModel.getData();
-        //     let aFilters = [];
-        //     if(oFilterData.productname != null && oFilterData.productname != ""){
-        //       aFilters.push(
-        //         new Filter("produkt/name", FilterOperator.EQ, oFilterData.productname)
-        //       );
-        //     }
-
-        //     this.getView().byId("lieferungen_table").getBinding("items").filter(aFilters, FilterType.Application);
-        //   },
       }
     );
   }

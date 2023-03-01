@@ -43,11 +43,20 @@ sap.ui.define(
 
         _onPatternMatchedCreate: function (oEvent) {
           this.bCreate = true;
+          let lagerID = oEvent.getParameter("arguments").lagerID;
+          this.getView()
+            .getModel()
+            .bindContext("/Lager(" + lagerID + ")")
+            .requestObject()
+            .then((Data) => {
+              this.getView().setModel(new JSONModel(Data), "lagerModel");
+            });
           this.getView().unbindElement();
+
           let oContext = this.getView()
             .getModel()
             .bindList("/Lagerbestand")
-            .create(undefined, undefined, undefined, true);
+            .create({ lager_ID: lagerID }, undefined, undefined, true);
           this._setFragement("LagerProdukteErstellen");
           this.getView().setBindingContext(oContext);
         },

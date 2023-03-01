@@ -161,7 +161,7 @@
                 },
                 {
                     "name": "LagerProdukte",
-                    "pattern": "LagerProdukte",
+                    "pattern": "LagerProdukte/{lagerID}",
                     "target": "TargetLagerProdukte"
                 },
                 {
@@ -176,7 +176,7 @@
                 },
                 {
                     "name": "LagerProdukteErstellen",
-                    "pattern": "LagerProdukteErstellen",
+                    "pattern": "LagerProdukteErstellen/{lagerID}",
                     "target": "TargetLagerProdukteDetail"
                 },
                 {

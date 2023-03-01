@@ -28,31 +28,47 @@ sap.ui.define(
           this.getOwnerComponent().getRouter().navTo("LagerortErstellen");
         },
 
-        onProduktePressed: function () {
-          this.getOwnerComponent().getRouter().navTo("LagerProdukte");
+        onProduktePressed: function (oEvent) {
+          let oLagerID = oEvent
+            .getSource()
+            .getBindingContext()
+            .getPath()
+            .split("(")[1]
+            .split(")")[0];
+          this.getOwnerComponent()
+            .getRouter()
+            .navTo("LagerProdukte", { lagerID: oLagerID });
         },
 
-        // onDeleteButtonPressed: function (oEvent) {
-        //   let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+        onDeleteButtonPressed: function (oEvent) {
+          let oResourceBundle = this.getView()
+            .getModel("i18n")
+            .getResourceBundle();
 
-        //   MessageBox.warning(
-        //     oResourceBundle.getText("Wollen Sie ihren Eintrag wirklich löschen?"),
-        //     {
-        //       title: oResourceBundle.getText("Delete"),
-        //       actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-        //       emphasizedAction: MessageBox.Action.YES,
-        //       onClose: function (oAction) {
-        //         if (MessageBox.Action.YES === oAction) {
-        //           oEvent.getSource().getBindingContext().delete().then(
-        //             function () {
-        //               this.getView().getModel().refresh();
-        //             }.bind(this)
-        //           );
-        //         }
-        //       }.bind(this),
-        //     }
-        //   );
-        // },
+          MessageBox.warning(
+            oResourceBundle.getText(
+              "Wollen Sie ihren Eintrag wirklich löschen?"
+            ),
+            {
+              title: oResourceBundle.getText("Delete"),
+              actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+              emphasizedAction: MessageBox.Action.YES,
+              onClose: function (oAction) {
+                if (MessageBox.Action.YES === oAction) {
+                  oEvent
+                    .getSource()
+                    .getBindingContext()
+                    .delete()
+                    .then(
+                      function () {
+                        this.getView().getModel().refresh();
+                      }.bind(this)
+                    );
+                }
+              }.bind(this),
+            }
+          );
+        },
 
         onDeleteButtonPressed: function (oEvent) {
           let oResourceBundle = this.getView()

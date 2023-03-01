@@ -3,7 +3,7 @@
         id="SimpleFormChange354"
         editable="true"
         layout="ResponsiveGridLayout"
-        title="Lagerort erstellen"
+        title="Produkt bearbeiten"
         labelSpanXL="3"
         labelSpanL="3"
         labelSpanM="3"
@@ -18,25 +18,17 @@
         columnsM="1"
         singleContainerFullSize="false"
     >
-        <Label text="Lager Name" labelFor="edit_input_lagername" />
-        <Text text="{lager/name}" />
-        <Label text="Lagerort" labelFor="edit_input_lagerort" />
-        <Text text="{lager/ort}" />
-        <Label text="Produkt" />
-        <ActionSelect selectedKey="{produkt/name}" forceSelection="false" items="{
-			        path: '/Produkte',
-			        sorter: { path:'name'}
-			        }">
-            <items>
-                <core:Item text="{name}" key="{ID}" />
-            </items>
-        </ActionSelect>
-        <Label text="Menge" wrapping="true" />
-        <VBox>
-            <StepInput value="{menge}" change="onChange" />
-        </VBox>
-        <f:content />
-
-        <f:content />
+        <f:content>
+            <Label text="Lager Name" labelFor="edit_input_lagername" />
+            <Text text="{lager/name}" />
+            <Label text="Lagerort" labelFor="edit_input_lagerort" />
+            <Text text="{lager/ort}" />
+            <Label text="Produkt" labelFor="edit_input_lagerProdukt" />
+            <Text text="{produkt/name}" />
+            <Label text="Menge" wrapping="true" />
+            <VBox>
+                <StepInput value="{menge}" change="onChange" />
+            </VBox>
+        </f:content>
     </f:SimpleForm>
 </core:FragmentDefinition>
