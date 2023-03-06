@@ -2,22 +2,19 @@ sap.ui.define(
   [
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/routing/History",
-    "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
-    "sap/base/Log",
-    "sap/m/MessageBox",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, History, JSONModel, Fragment, Log, MessageBox) {
+  function (Controller, History, Fragment) {
     "use strict";
 
     return Controller.extend(
       "at.clouddna.lagermanagement.controller.LieferantDetail",
       {
         _fragmentList: {},
-        bCreate: false,
+        _bCreate: false,
 
         onInit: function () {
           let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -31,7 +28,7 @@ sap.ui.define(
         },
 
         _onPatternMatchedDetail: function (oEvent) {
-          this.bCreate = false;
+          this._bCreate = false;
           let id = oEvent.getParameter("arguments").ID;
           if (id) {
             let sPath = "/Lieferanten(" + id + ")";
@@ -42,7 +39,7 @@ sap.ui.define(
         },
 
         _onPatternMatchedCreate: function (oEvent) {
-          this.bCreate = true;
+          this._bCreate = true;
           this.getView().unbindElement();
           let oContext = this.getView()
             .getModel()

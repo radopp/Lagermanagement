@@ -51,46 +51,58 @@ sap.ui.define(
         },
 
         toExcel: function () {
-          var aColumns = [];
+          let oResourceBundle = this.getView()
+            .getModel("i18n")
+            .getResourceBundle();
+
+          let aColumns = [];
           aColumns.push({
-            label: "Produktname",
+            label: oResourceBundle.getText("produkte.Produkt"),
             property: "name",
           });
           aColumns.push({
-            label: "Lastname",
+            label: oResourceBundle.getText("produkte.Produktbeschreibung"),
             property: "beschreibung",
           });
           aColumns.push({
-            label: "Anzahl",
-            property: "anzahl",
+            label: oResourceBundle.getText("produkte.Preis"),
+            property: "preis",
           });
           aColumns.push({
-            label: "Einkaufspreis",
-            property: "einkaufspreis",
+            label: oResourceBundle.getText("produkte.Mindestbestand"),
+            property: "mindestbestand",
           });
           aColumns.push({
-            label: "Währung",
-            property: "waehrung/name",
+            label: oResourceBundle.getText("produkte.Mengeok"),
+            property: "mengeok",
+          });
+          aColumns.push({
+            label: oResourceBundle.getText("produkte.Mengewarnung"),
+            property: "mengewarnung",
+          });
+          aColumns.push({
+            label: oResourceBundle.getText("produkte.Lieferanten"),
+            property: "lieferant/name",
           });
 
-          var mSettings = {
+          let mSettings = {
             workbook: {
               columns: aColumns,
               context: {
                 application: "Debug Test Application",
                 version: "1.105.0",
-                title: "Produkte",
+                title: oResourceBundle.getText("menu.Produkte"),
               },
               hierarchyLevel: "level",
             },
             dataSource: {
               type: "odata",
-              dataUrl: `/Lagerverwaltung/Produkt?$expand=waehrung`,
+              dataUrl: `/Lagermanagement/Produkte?$expand=lieferant`,
               serviceUrl: "",
             },
-            fileName: "Produkte.xlsx",
+            fileName: oResourceBundle.getText("menu.Produkte") + ".xlsx",
           };
-          var oSpreadsheet = new Spreadsheet(mSettings);
+          let oSpreadsheet = new Spreadsheet(mSettings);
           oSpreadsheet.build();
         },
       }

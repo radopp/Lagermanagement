@@ -93,38 +93,38 @@ sap.ui.define(
         },
 
         toExcel: function () {
-          var aColumns = [];
+          let oResourceBundle = this.getView()
+            .getModel("i18n")
+            .getResourceBundle();
+
+          let aColumns = [];
           aColumns.push({
-            label: "Produktname",
-            property: "produkt/name",
+            label: oResourceBundle.getText("lagerort.LagerName"),
+            property: "name",
           });
           aColumns.push({
-            label: "Lager Anzahl",
-            property: "lagerAnz",
-          });
-          aColumns.push({
-            label: "Lagerort",
+            label: oResourceBundle.getText("lagerort.Lagerort"),
             property: "ort",
           });
 
-          var mSettings = {
+          let mSettings = {
             workbook: {
               columns: aColumns,
               context: {
                 application: "Debug Test Application",
                 version: "1.105.0",
-                title: "Lagerort",
+                title: oResourceBundle.getText("menu.Lagerorte"),
               },
               hierarchyLevel: "level",
             },
             dataSource: {
               type: "odata",
-              dataUrl: `/Lagerverwaltung/Lagerort?$expand=produkt`,
+              dataUrl: `/Lagermanagement/Lager`,
               serviceUrl: "",
             },
-            fileName: "Lagerort.xlsx",
+            fileName: oResourceBundle.getText("menu.Lagerorte") + ".xlsx",
           };
-          var oSpreadsheet = new Spreadsheet(mSettings);
+          let oSpreadsheet = new Spreadsheet(mSettings);
           oSpreadsheet.build();
         },
       }

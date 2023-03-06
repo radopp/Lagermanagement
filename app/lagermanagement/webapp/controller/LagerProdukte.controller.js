@@ -2,32 +2,14 @@ sap.ui.define(
   [
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageBox",
-    "sap/ui/model/Sorter",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/ui/model/FilterType",
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/unified/DateRange",
-    "sap/ui/core/format/DateFormat",
-    "sap/ui/core/library",
     "sap/ui/export/Spreadsheet",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (
-    Controller,
-    MessageBox,
-    Sorter,
-    Filter,
-    FilterOperator,
-    FilterType,
-    JSONModel,
-    DateRange,
-    DateFormat,
-    coreLibrary,
-    Spreadsheet
-  ) {
+  function (Controller, MessageBox, Filter, FilterOperator, Spreadsheet) {
     "use strict";
 
     return Controller.extend(
@@ -81,6 +63,51 @@ sap.ui.define(
               }
             }.bind(this),
           });
+        },
+
+        toExcel: function () {
+          let oResourceBundle = this.getView()
+            .getModel("i18n")
+            .getResourceBundle();
+
+          let aColumns = [];
+          aColumns.push({
+            label: oResourceBundle.getText("lagerort.LagerName"),
+            property: "lager/name",
+          });
+          aColumns.push({
+            label: oResourceBundle.getText("lagerort.Lagerort"),
+            property: "lager/ort",
+          });
+          aColumns.push({
+            label: oResourceBundle.getText("lagerort.Produkt"),
+            property: "produkt/name",
+          });
+          aColumns.push({
+            label: oResourceBundle.getText("lagerort.Anzahl"),
+            property: "menge",
+          });
+
+          let mSettings = {
+            workbook: {
+              columns: aColumns,
+              context: {
+                application: "Debug Test Application",
+                version: "1.105.0",
+                title: oResourceBundle.getText("lagerort.ProdukteImLager"),
+              },
+              hierarchyLevel: "level",
+            },
+            dataSource: {
+              type: "odata",
+              dataUrl: `/Lagermanagement/Lagerbestand?$expand=lager,produkt`,
+              serviceUrl: "",
+            },
+            fileName:
+              oResourceBundle.getText("lagerort.ProdukteImLager") + ".xlsx",
+          };
+          let oSpreadsheet = new Spreadsheet(mSettings);
+          oSpreadsheet.build();
         },
       }
     );

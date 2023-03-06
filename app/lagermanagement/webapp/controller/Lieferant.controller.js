@@ -67,86 +67,35 @@ sap.ui.define(
           });
         },
 
-        fetchData: function () {
-          var aData = this.oFilterBar
-            .getAllFilterItems()
-            .reduce(function (aResult, oFilterItem) {
-              aResult.push({
-                groupName: oFilterItem.getGroupName(),
-                fieldName: oFilterItem.getName(),
-                fieldData: oFilterItem.getControl().getSelectedKeys(),
-              });
-
-              return aResult;
-            }, []);
-
-          return aData;
-        },
-
-        onFilter: function () {
-          let oModel = this.getView().getModel("filterModel");
-          let oFilterData = oModel.getData();
-          let aFilters = [];
-          if (
-            oFilterData.productname != null &&
-            oFilterData.productname != ""
-          ) {
-            aFilters.push(
-              new Filter(
-                "produkt/name",
-                FilterOperator.EQ,
-                oFilterData.productname
-              )
-            );
-          }
-
-          this.getView()
-            .byId("lieferungen_table")
-            .getBinding("items")
-            .filter(aFilters, FilterType.Application);
-        },
-
         toExcel: function () {
-          var aColumns = [];
+          let oResourceBundle = this.getView()
+            .getModel("i18n")
+            .getResourceBundle();
+
+          let aColumns = [];
           aColumns.push({
-            label: "Produktname",
-            property: "produkt/name",
-          });
-          aColumns.push({
-            label: "Lieferanzahl",
-            property: "lieferungsAnz",
-          });
-          aColumns.push({
-            label: "Lieferant",
+            label: oResourceBundle.getText("lieferant.Lieferant"),
             property: "name",
           });
-          aColumns.push({
-            label: "Steuernummer",
-            property: "steuernummer",
-          });
-          aColumns.push({
-            label: "Datum",
-            property: "date",
-          });
 
-          var mSettings = {
+          let mSettings = {
             workbook: {
               columns: aColumns,
               context: {
                 application: "Debug Test Application",
                 version: "1.105.0",
-                title: "Lieferungen",
+                title: oResourceBundle.getText("menu.Lieferant"),
               },
               hierarchyLevel: "level",
             },
             dataSource: {
               type: "odata",
-              dataUrl: `/Lagerverwaltung/Lieferant?$expand=produkt`,
+              dataUrl: `/Lagermanagement/Lieferanten`,
               serviceUrl: "",
             },
-            fileName: "Lieferungen.xlsx",
+            fileName: oResourceBundle.getText("menu.Lieferant") + ".xlsx",
           };
-          var oSpreadsheet = new Spreadsheet(mSettings);
+          let oSpreadsheet = new Spreadsheet(mSettings);
           oSpreadsheet.build();
         },
       }

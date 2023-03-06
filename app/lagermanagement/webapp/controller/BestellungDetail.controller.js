@@ -17,7 +17,7 @@ sap.ui.define(
       "at.clouddna.lagermanagement.controller.BestellungDetail",
       {
         _fragmentList: {},
-        bCreate: false,
+        _bCreate: false,
 
         onInit: function () {
           let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -32,7 +32,7 @@ sap.ui.define(
         },
 
         _onPatternMatchedDetail: function (oEvent) {
-          this.bCreate = false;
+          this._bCreate = false;
           let id = oEvent.getParameter("arguments").ID;
           if (id) {
             let sPath = "/Bestellungen(" + id + ")";
@@ -43,7 +43,7 @@ sap.ui.define(
         },
 
         _onPatternMatchedCreate: function (oEvent) {
-          this.bCreate = true;
+          this._bCreate = true;
           this.getView().unbindElement();
 
           this._setFragement("BestellungErstellen");
@@ -128,23 +128,18 @@ sap.ui.define(
               ),
               lieferdatum: this._formatDate(oModel.getProperty("/lieferdatum")),
               //produktid: oModel.getProperty("/produkte"),
-            };
-
-          let oContext = this.getView()
+            },
+            oContext = this.getView()
               .getModel()
               .bindList("/Bestellungen")
-              .create(oBestellung),
-            oCreated;
+              .create(oBestellung);
 
           oContext
             .created()
             .then((oData, response) => {
-              oContext;
               let aProdukteArray = [];
 
               oModel.getData().produkte.forEach((produkt) => {
-                aProdukteArray.push();
-
                 aProdukteArray.push(
                   this.getView()
                     .getModel()

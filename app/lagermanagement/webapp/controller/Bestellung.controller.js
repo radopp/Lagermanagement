@@ -18,9 +18,9 @@ sap.ui.define(
           let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
           oRouter
             .getRoute("Bestellung")
-            .attachPatternMatched(this.onPatternMatched, this);
+            .attachPatternMatched(this._onPatternMatched, this);
         },
-        onPatternMatched: function () {
+        _onPatternMatched: function () {
           this.getView()
             .getModel()
             .bindContext("/Bestellungen", null, {
@@ -35,15 +35,9 @@ sap.ui.define(
             });
         },
 
-        getIdforPosition: function (obj) {
-          if (obj != null) {
-            return obj.produkt ? obj.produkt.ID : obj.ID;
-          }
-        },
-
         onListItemPressed: function (oEvent) {
-          let sPath = oEvent.getSource().getBindingContext().getPath();
-          let oRouter = this.getOwnerComponent().getRouter();
+          let sPath = oEvent.getSource().getBindingContext().getPath(),
+            oRouter = this.getOwnerComponent().getRouter();
           oRouter.navTo("BestellungBearbeiten", {
             ID: sPath.split("(")[1].split(")")[0],
           });
@@ -76,47 +70,91 @@ sap.ui.define(
           });
         },
 
+        // toExcel: function () {
+        //   let oResourceBundle = this.getView()
+        //     .getModel("i18n")
+        //     .getResourceBundle();
+
+        //   let aColumns = [];
+        //   aColumns.push({
+        //     label: oResourceBundle.getText("bestellung.Produkt"),
+        //     property: "positionen/name",
+        //   });
+        //   aColumns.push({
+        //     label: oResourceBundle.getText("bestellung.Anzahl"),
+        //     property: "positionen/anzahl",
+        //   });
+        //   aColumns.push({
+        //     label: oResourceBundle.getText("bestellung.Bestelldatum"),
+        //     property: "bestelldatum",
+        //   });
+        //   aColumns.push({
+        //     label: oResourceBundle.getText("bestellung.Lieferdatum"),
+        //     property: "lieferdatum",
+        //   });
+
+        //   let mSettings = {
+        //     workbook: {
+        //       columns: aColumns,
+        //       context: {
+        //         application: "Debug Test Application",
+        //         version: "1.105.0",
+        //         title: oResourceBundle.getText("menu.Bestellungen"),
+        //       },
+        //       hierarchyLevel: "level",
+        //     },
+        //     dataSource: {
+        //       type: "odata",
+        //       dataUrl: `/Lagermanagement/Bestellungen?$expand=positionen`,
+        //       serviceUrl: "",
+        //     },
+        //     fileName: oResourceBundle.getText("menu.Bestellungen") + ".xlsx",
+        //   };
+        //   let oSpreadsheet = new Spreadsheet(mSettings);
+        //   oSpreadsheet.build();
+        // },
+
         toExcel: function () {
-          var aColumns = [];
+          let oResourceBundle = this.getView()
+            .getModel("i18n")
+            .getResourceBundle();
+
+          let aColumns = [];
           aColumns.push({
-            label: "Produktname",
-            property: "name",
+            label: oResourceBundle.getText("bestellung.Produkt"),
+            property: "produkt/name",
           });
           aColumns.push({
-            label: "Lastname",
-            property: "beschreibung",
-          });
-          aColumns.push({
-            label: "Anzahl",
+            label: oResourceBundle.getText("bestellung.Anzahl"),
             property: "anzahl",
           });
           aColumns.push({
-            label: "Einkaufspreis",
-            property: "einkaufspreis",
+            label: oResourceBundle.getText("bestellung.Bestelldatum"),
+            property: "bestellung/bestelldatum",
           });
           aColumns.push({
-            label: "Währung",
-            property: "waehrung/name",
+            label: oResourceBundle.getText("bestellung.Lieferdatum"),
+            property: "bestellung/lieferdatum",
           });
 
-          var mSettings = {
+          let mSettings = {
             workbook: {
               columns: aColumns,
               context: {
                 application: "Debug Test Application",
                 version: "1.105.0",
-                title: "Produkte",
+                title: oResourceBundle.getText("menu.Bestellungen"),
               },
               hierarchyLevel: "level",
             },
             dataSource: {
               type: "odata",
-              dataUrl: `/Lagerverwaltung/Produkt?$expand=waehrung`,
+              dataUrl: `/Lagermanagement/Bestellposition?$expand=bestellung,produkt`,
               serviceUrl: "",
             },
-            fileName: "Produkte.xlsx",
+            fileName: oResourceBundle.getText("menu.Bestellungen") + ".xlsx",
           };
-          var oSpreadsheet = new Spreadsheet(mSettings);
+          let oSpreadsheet = new Spreadsheet(mSettings);
           oSpreadsheet.build();
         },
       }

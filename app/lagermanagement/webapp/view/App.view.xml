@@ -3,7 +3,7 @@
         <detailPages />
         <masterPages>
             <Page id="menu" title="{i18n>title.Menu}" backgroundDesign="List">
-                <List itemPress="_onListItemPressed">
+                <List itemPress="onListItemPressed">
                     <items>
                         <StandardListItem id="produkte_ID" title="{i18n>menu.Produkte}" type="Active" />
                         <StandardListItem id="lieferant_ID" title="{i18n>menu.Lieferant}" type="Active" />

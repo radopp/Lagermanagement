@@ -17,7 +17,7 @@ sap.ui.define(
       "at.clouddna.lagermanagement.controller.ProdukteDetail",
       {
         _fragmentList: {},
-        bCreate: false,
+        _bCreate: false,
 
         onInit: function () {
           let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -31,7 +31,7 @@ sap.ui.define(
         },
 
         _onPatternMatchedDetail: function (oEvent) {
-          this.bCreate = false;
+          this._bCreate = false;
           let id = oEvent.getParameter("arguments").ID;
           if (id) {
             let sPath = "/Produkte(" + id + ")";
@@ -42,7 +42,7 @@ sap.ui.define(
         },
 
         _onPatternMatchedCreate: function (oEvent) {
-          this.bCreate = true;
+          this._bCreate = true;
           this.getView().unbindElement();
           let oContext = this.getView()
             .getModel()
@@ -98,8 +98,8 @@ sap.ui.define(
         },
 
         onSavePressed: function () {
-          this.onNavBack();
           this.getView().getModel().refresh();
+          this.onNavBack();
         },
       }
     );
