@@ -1,6 +1,6 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "at/clouddna/lagermanagement/controller/BaseController",
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
     "sap/ui/export/Spreadsheet",
@@ -8,21 +8,20 @@ sap.ui.define(
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, MessageBox, JSONModel, Spreadsheet) {
+  function (BaseController, MessageBox, JSONModel, Spreadsheet) {
     "use strict";
 
-    return Controller.extend(
+    return BaseController.extend(
       "at.clouddna.lagermanagement.controller.Bestellung",
       {
         onInit: function () {
-          let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          let oRouter = this.getRouter();
           oRouter
             .getRoute("Bestellung")
             .attachPatternMatched(this._onPatternMatched, this);
         },
         _onPatternMatched: function () {
-          this.getView()
-            .getModel()
+          this.getModel()
             .bindContext("/Bestellungen", null, {
               $expand: "positionen($expand=produkt)",
             })
@@ -44,18 +43,14 @@ sap.ui.define(
         },
 
         onCreatePressed: function () {
-          let oRouter = this.getOwnerComponent().getRouter();
+          let oRouter = this.getRouter();
           oRouter.navTo("BestellungErstellen");
         },
 
         onDeleteButtonPressed: function (oEvent) {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           this.selectedBindngContext = oEvent.getSource().getBindingContext();
-          MessageBox.warning(oResourceBundle.getText("delete.Bestellung"), {
-            title: oResourceBundle.getText("delete.Delete"),
+          MessageBox.warning(this.geti18nText("delete.Bestellung"), {
+            title: this.geti18nText("delete.Delete"),
             actions: [MessageBox.Action.YES, MessageBox.Action.NO],
             emphasizedAction: MessageBox.Action.YES,
             onClose: function (oAction) {
@@ -70,70 +65,22 @@ sap.ui.define(
           });
         },
 
-        // toExcel: function () {
-        //   let oResourceBundle = this.getView()
-        //     .getModel("i18n")
-        //     .getResourceBundle();
-
-        //   let aColumns = [];
-        //   aColumns.push({
-        //     label: oResourceBundle.getText("bestellung.Produkt"),
-        //     property: "positionen/name",
-        //   });
-        //   aColumns.push({
-        //     label: oResourceBundle.getText("bestellung.Anzahl"),
-        //     property: "positionen/anzahl",
-        //   });
-        //   aColumns.push({
-        //     label: oResourceBundle.getText("bestellung.Bestelldatum"),
-        //     property: "bestelldatum",
-        //   });
-        //   aColumns.push({
-        //     label: oResourceBundle.getText("bestellung.Lieferdatum"),
-        //     property: "lieferdatum",
-        //   });
-
-        //   let mSettings = {
-        //     workbook: {
-        //       columns: aColumns,
-        //       context: {
-        //         application: "Debug Test Application",
-        //         version: "1.105.0",
-        //         title: oResourceBundle.getText("menu.Bestellungen"),
-        //       },
-        //       hierarchyLevel: "level",
-        //     },
-        //     dataSource: {
-        //       type: "odata",
-        //       dataUrl: `/Lagermanagement/Bestellungen?$expand=positionen`,
-        //       serviceUrl: "",
-        //     },
-        //     fileName: oResourceBundle.getText("menu.Bestellungen") + ".xlsx",
-        //   };
-        //   let oSpreadsheet = new Spreadsheet(mSettings);
-        //   oSpreadsheet.build();
-        // },
-
         toExcel: function () {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           let aColumns = [];
           aColumns.push({
-            label: oResourceBundle.getText("bestellung.Produkt"),
+            label: this.geti18nText("bestellung.Produkt"),
             property: "produkt/name",
           });
           aColumns.push({
-            label: oResourceBundle.getText("bestellung.Anzahl"),
+            label: this.geti18nText("bestellung.Anzahl"),
             property: "anzahl",
           });
           aColumns.push({
-            label: oResourceBundle.getText("bestellung.Bestelldatum"),
+            label: this.geti18nText("bestellung.Bestelldatum"),
             property: "bestellung/bestelldatum",
           });
           aColumns.push({
-            label: oResourceBundle.getText("bestellung.Lieferdatum"),
+            label: this.geti18nText("bestellung.Lieferdatum"),
             property: "bestellung/lieferdatum",
           });
 
@@ -143,7 +90,7 @@ sap.ui.define(
               context: {
                 application: "Debug Test Application",
                 version: "1.105.0",
-                title: oResourceBundle.getText("menu.Bestellungen"),
+                title: this.geti18nText("menu.Bestellungen"),
               },
               hierarchyLevel: "level",
             },
@@ -152,7 +99,7 @@ sap.ui.define(
               dataUrl: `/Lagermanagement/Bestellposition?$expand=bestellung,produkt`,
               serviceUrl: "",
             },
-            fileName: oResourceBundle.getText("menu.Bestellungen") + ".xlsx",
+            fileName: this.geti18nText("menu.Bestellungen") + ".xlsx",
           };
           let oSpreadsheet = new Spreadsheet(mSettings);
           oSpreadsheet.build();

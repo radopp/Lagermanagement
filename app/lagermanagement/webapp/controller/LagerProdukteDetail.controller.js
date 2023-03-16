@@ -1,6 +1,6 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "at/clouddna/lagermanagement/controller/BaseController",
     "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
@@ -8,17 +8,17 @@ sap.ui.define(
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, History, JSONModel, Fragment) {
+  function (BaseController, History, JSONModel, Fragment) {
     "use strict";
 
-    return Controller.extend(
+    return BaseController.extend(
       "at.clouddna.lagermanagement.controller.LagerProdukteDetail",
       {
         _fragmentList: {},
         _bCreate: false,
 
         onInit: function () {
-          let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          let oRouter = this.getRouter();
           oRouter
             .getRoute("LagerProdukteBearbeiten")
             .attachPatternMatched(this._onPatternMatchedDetail, this);
@@ -42,8 +42,7 @@ sap.ui.define(
         _onPatternMatchedCreate: function (oEvent) {
           this._bCreate = true;
           let lagerID = oEvent.getParameter("arguments").lagerID;
-          this.getView()
-            .getModel()
+          this.getModel()
             .bindContext("/Lager(" + lagerID + ")")
             .requestObject()
             .then((Data) => {
@@ -51,8 +50,7 @@ sap.ui.define(
             });
           this.getView().unbindElement();
 
-          let oContext = this.getView()
-            .getModel()
+          let oContext = this.getModel()
             .bindList("/Lagerbestand")
             .create({ lager_ID: lagerID }, undefined, undefined, true);
           this._setFragement("LagerProdukteErstellen");
@@ -76,18 +74,6 @@ sap.ui.define(
                 oPage.insertContent(this._fragmentList[sFragmentName]);
               }.bind(this)
             );
-          }
-        },
-
-        onNavBack: function () {
-          let oHistory = History.getInstance();
-          let sPreviousHash = oHistory.getPreviousHash();
-
-          if (sPreviousHash !== undefined) {
-            window.history.go(-1);
-          } else {
-            let oRouter = this.getOwnerComponent().getRouter();
-            oRouter.navTo("LagerProdukte");
           }
         },
         onEditPressed: function () {

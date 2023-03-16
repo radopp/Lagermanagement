@@ -1,23 +1,23 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "at/clouddna/lagermanagement/controller/BaseController",
     "sap/ui/core/routing/History",
     "sap/ui/core/Fragment",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, History, Fragment) {
+  function (BaseController, History, Fragment) {
     "use strict";
 
-    return Controller.extend(
+    return BaseController.extend(
       "at.clouddna.lagermanagement.controller.LieferantDetail",
       {
         _fragmentList: {},
         _bCreate: false,
 
         onInit: function () {
-          let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          let oRouter = this.getRouter();
           oRouter
             .getRoute("LieferantBearbeiten")
             .attachPatternMatched(this._onPatternMatchedDetail, this);
@@ -41,8 +41,7 @@ sap.ui.define(
         _onPatternMatchedCreate: function (oEvent) {
           this._bCreate = true;
           this.getView().unbindElement();
-          let oContext = this.getView()
-            .getModel()
+          let oContext = this.getModel()
             .bindList("/Lieferanten")
             .create(undefined, undefined, undefined, true);
           this._setFragement("LieferantErstellen");
@@ -69,17 +68,6 @@ sap.ui.define(
           }
         },
 
-        onNavBack: function () {
-          let oHistory = History.getInstance();
-          let sPreviousHash = oHistory.getPreviousHash();
-
-          if (sPreviousHash !== undefined) {
-            window.history.go(-1);
-          } else {
-            let oRouter = this.getOwnerComponent().getRouter();
-            oRouter.navTo("Lieferant");
-          }
-        },
         onEditPressed: function () {
           this._toggleEdit(true);
         },

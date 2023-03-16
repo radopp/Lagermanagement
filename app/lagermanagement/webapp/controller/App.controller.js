@@ -1,15 +1,15 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller"],
+  ["at/clouddna/lagermanagement/controller/BaseController"],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller) {
+  function (BaseController) {
     "use strict";
 
-    return Controller.extend("at.clouddna.lagermanagement.controller.App", {
+    return BaseController.extend("at.clouddna.lagermanagement.controller.App", {
       onInit: function () {},
       onListItemPressed: function (oEvent) {
-        let oRouter = this.getOwnerComponent().getRouter(),
+        let oRouter = this.getRouter(),
           sID = oEvent.getParameters().listItem.getId();
 
         switch (true) {
@@ -24,6 +24,9 @@ sap.ui.define(
             break;
           case sID.includes("bestellungen_ID"):
             oRouter.navTo("Bestellung");
+            break;
+          default:
+            oRouter.navTo("Dashboard");
             break;
         }
       },

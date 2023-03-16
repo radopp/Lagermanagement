@@ -1,31 +1,29 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "at/clouddna/lagermanagement/controller/BaseController",
     "sap/m/MessageBox",
     "sap/ui/export/Spreadsheet",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, MessageBox, Spreadsheet) {
+  function (BaseController, MessageBox, Spreadsheet) {
     "use strict";
 
-    return Controller.extend(
+    return BaseController.extend(
       "at.clouddna.lagermanagement.controller.Lagerort",
       {
         onInit: function () {},
 
         onListItemPressed: function (oEvent) {
           let sPath = oEvent.getSource().getBindingContext().getPath();
-          this.getOwnerComponent()
-            .getRouter()
-            .navTo("LagerortBearbeiten", {
-              ID: sPath.split("(")[1].split(")")[0],
-            });
+          this.getRouter().navTo("LagerortBearbeiten", {
+            ID: sPath.split("(")[1].split(")")[0],
+          });
         },
 
         onCreatePressed: function () {
-          this.getOwnerComponent().getRouter().navTo("LagerortErstellen");
+          this.getRouter().navTo("LagerortErstellen");
         },
 
         onProduktePressed: function (oEvent) {
@@ -35,49 +33,13 @@ sap.ui.define(
             .getPath()
             .split("(")[1]
             .split(")")[0];
-          this.getOwnerComponent()
-            .getRouter()
-            .navTo("LagerProdukte", { lagerID: oLagerID });
+          this.getRouter().navTo("LagerProdukte", { lagerID: oLagerID });
         },
 
         onDeleteButtonPressed: function (oEvent) {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
-          MessageBox.warning(
-            oResourceBundle.getText(
-              "Wollen Sie ihren Eintrag wirklich löschen?"
-            ),
-            {
-              title: oResourceBundle.getText("Delete"),
-              actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-              emphasizedAction: MessageBox.Action.YES,
-              onClose: function (oAction) {
-                if (MessageBox.Action.YES === oAction) {
-                  oEvent
-                    .getSource()
-                    .getBindingContext()
-                    .delete()
-                    .then(
-                      function () {
-                        this.getView().getModel().refresh();
-                      }.bind(this)
-                    );
-                }
-              }.bind(this),
-            }
-          );
-        },
-
-        onDeleteButtonPressed: function (oEvent) {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           this.selectedBindngContext = oEvent.getSource().getBindingContext();
-          MessageBox.warning(oResourceBundle.getText("delete.Lagerort"), {
-            title: oResourceBundle.getText("delete.Delete"),
+          MessageBox.warning(this.geti18nText("delete.Lagerort"), {
+            title: this.geti18nText("delete.Delete"),
             actions: [MessageBox.Action.YES, MessageBox.Action.NO],
             emphasizedAction: MessageBox.Action.YES,
             onClose: function (oAction) {
@@ -93,17 +55,13 @@ sap.ui.define(
         },
 
         toExcel: function () {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           let aColumns = [];
           aColumns.push({
-            label: oResourceBundle.getText("lagerort.LagerName"),
+            label: this.geti18nText("lagerort.LagerName"),
             property: "name",
           });
           aColumns.push({
-            label: oResourceBundle.getText("lagerort.Lagerort"),
+            label: this.geti18nText("lagerort.Lagerort"),
             property: "ort",
           });
 
@@ -113,7 +71,7 @@ sap.ui.define(
               context: {
                 application: "Debug Test Application",
                 version: "1.105.0",
-                title: oResourceBundle.getText("menu.Lagerorte"),
+                title: this.geti18nText("menu.Lagerorte"),
               },
               hierarchyLevel: "level",
             },
@@ -122,7 +80,7 @@ sap.ui.define(
               dataUrl: `/Lagermanagement/Lager`,
               serviceUrl: "",
             },
-            fileName: oResourceBundle.getText("menu.Lagerorte") + ".xlsx",
+            fileName: this.geti18nText("menu.Lagerorte") + ".xlsx",
           };
           let oSpreadsheet = new Spreadsheet(mSettings);
           oSpreadsheet.build();

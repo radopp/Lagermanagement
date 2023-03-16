@@ -1,0 +1,167 @@
+<mvc:View id="Dashboard" controllerName="at.clouddna.lagermanagement.controller.Dashboard" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.f" xmlns:card="sap.f.cards" xmlns:core="sap.ui.core" xmlns:w="sap.ui.integration.widgets" displayBlock="true" height="100%" width="100%">
+    <Page id="page" title="{i18n>global.Title}">
+        <OverflowToolbar id="_IDGenOverflowToolbar1" height="50px">
+            <Title text="{i18n>menu.Dashboard}" />
+            <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+        </OverflowToolbar>
+        <content>
+            <f:GridContainer>
+                <f:Card>
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData minRows="4" columns="4" />
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="{i18n>menu.Produkte}" />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{path:'/Produkte', length: 4}">
+                            <CustomListItem type="Navigation" press="onProduktItemPressed">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Title level="H3" text="{name}" />
+                                        <Text text="{beschreibung}" />
+                                    </VBox>
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+
+                <f:Card>
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="{i18n>menu.Lieferant}" />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{path:'/Lieferanten', length: 4}">
+                            <CustomListItem type="Navigation" press="onLieferantItemPressed">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Title level="H3" text="{name}" />
+                                    </VBox>
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+
+                <f:Card>
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData minRows="3" columns="3" />
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="{i18n>menu.Lagerorte}" />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{path:'/Lager', length: 4}">
+                            <CustomListItem type="Navigation" press="onLagerortItemPressed">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Title level="H3" text="{name}" />
+                                        <Text text="{ort}" />
+                                    </VBox>
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+
+                <f:Card>
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData minRows="4" columns="4" />
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="{i18n>menu.Bestellungen}" />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{path:'/Bestellungen', length: 4}">
+                            <CustomListItem type="Navigation" press="onBestellungItemPressed">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Text text="Bestelldatum: {bestelldatum}" />
+                                        <Text text="Lieferdatum: {lieferdatum}" />
+                                    </VBox>
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+
+                <f:Card>
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData minRows="4" columns="4" />
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="{i18n>dashboard.Mengeok}" iconSrc="sap-icon://sys-enter-2" />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{lagerbestandModel>/ok}">
+                            <CustomListItem type="Navigation" press="onLagerortItemPressed">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Title level="H3" text="{lagerbestandModel>produkt/name}" />
+                                        <ObjectStatus class="sapUiSmallMarginBottom" text="{lagerbestandModel>menge}" icon="sap-icon://sys-enter-2" state="Success" />
+                                    </VBox>
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+
+                <f:Card>
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData minRows="4" columns="4" />
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="{i18n>dashboard.Mengewarnung}" iconSrc="sap-icon://error" />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{lagerbestandModel>/warnung}">
+                            <CustomListItem type="Navigation" press="onLagerortItemPressed">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Title level="H3" text="{lagerbestandModel>produkt/name}" />
+                                        <ObjectStatus class="sapUiSmallMarginBottom" text="{lagerbestandModel>menge}" icon="sap-icon://error" state="Error" />
+                                        <!-- <Text text="{lagerbestandModel>menge}" /> -->
+                                    </VBox>
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+
+                <f:Card>
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData minRows="4" columns="4" />
+                    </f:layoutData>
+                    <f:header>
+                        <card:Header title="{i18n>dashboard.Mindestbestand}" iconSrc="sap-icon://alert" />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{lagerbestandModel>/mindbest}">
+                            <CustomListItem type="Navigation" press="onLagerortItemPressed">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Title level="H3" text="{lagerbestandModel>produkt/name}" />
+                                        <ObjectStatus class="sapUiSmallMarginBottom" text="{lagerbestandModel>menge}" icon="sap-icon://alert" state="Warning" />
+                                    </VBox>
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+
+                <GenericTile header="{i18n>dashboard.AnzahlDerProdukteImLager}">
+                    <layoutData>
+                        <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                    </layoutData>
+                    <TileContent>
+                        <NumericContent id="idNumber" value="{lagerbestandModel>/anzahl}" valueColor="{lagerbestandModel>/valueColor}" />
+                    </TileContent>
+                </GenericTile>
+            </f:GridContainer>
+        </content>
+    </Page>
+</mvc:View>

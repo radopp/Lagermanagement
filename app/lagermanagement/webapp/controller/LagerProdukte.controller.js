@@ -1,6 +1,6 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "at/clouddna/lagermanagement/controller/BaseController",
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
@@ -9,14 +9,14 @@ sap.ui.define(
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, MessageBox, Filter, FilterOperator, Spreadsheet) {
+  function (BaseController, MessageBox, Filter, FilterOperator, Spreadsheet) {
     "use strict";
 
-    return Controller.extend(
+    return BaseController.extend(
       "at.clouddna.lagermanagement.controller.LagerProdukte",
       {
         onInit: function () {
-          let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          let oRouter = this.getRouter();
           oRouter
             .getRoute("LagerProdukte")
             .attachPatternMatched(this.onPatternMatched, this);
@@ -25,32 +25,28 @@ sap.ui.define(
         onPatternMatched: function (oEvent) {
           this.oLagerID = oEvent.getParameter("arguments").lagerID;
           this.getView()
-            .byId("produkte_table")
+            .byId("LagerProdukte_table")
             .getBinding("items")
             .filter(new Filter("lager_ID", FilterOperator.EQ, this.oLagerID));
         },
 
         onCreatePressed: function () {
-          let oRouter = this.getOwnerComponent().getRouter();
+          let oRouter = this.getRouter();
           oRouter.navTo("LagerProdukteErstellen", { lagerID: this.oLagerID });
         },
 
         onListItemPressed: function (oEvent) {
           let sPath = oEvent.getSource().getBindingContext().getPath();
-          let oRouter = this.getOwnerComponent().getRouter();
+          let oRouter = this.getRouter();
           oRouter.navTo("LagerProdukteBearbeiten", {
             ID: sPath.split("(")[1].split(")")[0],
           });
         },
 
         onDeleteButtonPressed: function (oEvent) {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           this.selectedBindngContext = oEvent.getSource().getBindingContext();
-          MessageBox.warning(oResourceBundle.getText("delete.LagerProdukt"), {
-            title: oResourceBundle.getText("delete.Delete"),
+          MessageBox.warning(this.geti18nText("delete.LagerProdukt"), {
+            title: this.geti18nText("delete.Delete"),
             actions: [MessageBox.Action.YES, MessageBox.Action.NO],
             emphasizedAction: MessageBox.Action.YES,
             onClose: function (oAction) {
@@ -66,25 +62,21 @@ sap.ui.define(
         },
 
         toExcel: function () {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           let aColumns = [];
           aColumns.push({
-            label: oResourceBundle.getText("lagerort.LagerName"),
+            label: this.geti18nText("lagerort.LagerName"),
             property: "lager/name",
           });
           aColumns.push({
-            label: oResourceBundle.getText("lagerort.Lagerort"),
+            label: this.geti18nText("lagerort.Lagerort"),
             property: "lager/ort",
           });
           aColumns.push({
-            label: oResourceBundle.getText("lagerort.Produkt"),
+            label: this.geti18nText("lagerort.Produkt"),
             property: "produkt/name",
           });
           aColumns.push({
-            label: oResourceBundle.getText("lagerort.Anzahl"),
+            label: this.geti18nText("lagerort.Anzahl"),
             property: "menge",
           });
 
@@ -94,7 +86,7 @@ sap.ui.define(
               context: {
                 application: "Debug Test Application",
                 version: "1.105.0",
-                title: oResourceBundle.getText("lagerort.ProdukteImLager"),
+                title: this.geti18nText("lagerort.ProdukteImLager"),
               },
               hierarchyLevel: "level",
             },
@@ -103,8 +95,7 @@ sap.ui.define(
               dataUrl: `/Lagermanagement/Lagerbestand?$expand=lager,produkt`,
               serviceUrl: "",
             },
-            fileName:
-              oResourceBundle.getText("lagerort.ProdukteImLager") + ".xlsx",
+            fileName: this.geti18nText("lagerort.ProdukteImLager") + ".xlsx",
           };
           let oSpreadsheet = new Spreadsheet(mSettings);
           oSpreadsheet.build();

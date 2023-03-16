@@ -23,7 +23,7 @@
             <Input value="{name}" />
             <Label text="{i18n>produkte.Produktbeschreibung}" labelFor="edit_input_produktbeschreibung" />
             <Input value="{beschreibung}" />
-            <Label text="{i18n>produkte.price}" wrapping="true" />
+            <Label text="{i18n>produkte.Preis}" wrapping="true" />
             <VBox>
                 <StepInput value="{preis}" change="onChange" />
             </VBox>

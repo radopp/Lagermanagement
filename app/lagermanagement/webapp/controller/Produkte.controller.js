@@ -1,6 +1,6 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "at/clouddna/lagermanagement/controller/BaseController",
     "sap/m/MessageBox",
     "sap/ui/export/Spreadsheet",
   ],
@@ -17,25 +17,19 @@ sap.ui.define(
 
         onListItemPressed: function (oEvent) {
           let sPath = oEvent.getSource().getBindingContext().getPath();
-          this.getOwnerComponent()
-            .getRouter()
-            .navTo("ProdukteBearbeiten", {
-              ID: sPath.split("(")[1].split(")")[0],
-            });
+          this.getRouter().navTo("ProdukteBearbeiten", {
+            ID: sPath.split("(")[1].split(")")[0],
+          });
         },
 
         onCreatePressed: function () {
-          this.getOwnerComponent().getRouter().navTo("ProdukteErstellen");
+          this.getRouter().navTo("ProdukteErstellen");
         },
 
         onDeleteButtonPressed: function (oEvent) {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           this.selectedBindngContext = oEvent.getSource().getBindingContext();
-          MessageBox.warning(oResourceBundle.getText("delete.Produkt"), {
-            title: oResourceBundle.getText("delete.Delete"),
+          MessageBox.warning(this.geti18nText("delete.Produkt"), {
+            title: this.geti18nText("delete.Delete"),
             actions: [MessageBox.Action.YES, MessageBox.Action.NO],
             emphasizedAction: MessageBox.Action.YES,
             onClose: function (oAction) {
@@ -51,37 +45,33 @@ sap.ui.define(
         },
 
         toExcel: function () {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           let aColumns = [];
           aColumns.push({
-            label: oResourceBundle.getText("produkte.Produkt"),
+            label: this.geti18nText("produkte.Produkt"),
             property: "name",
           });
           aColumns.push({
-            label: oResourceBundle.getText("produkte.Produktbeschreibung"),
+            label: this.geti18nText("produkte.Produktbeschreibung"),
             property: "beschreibung",
           });
           aColumns.push({
-            label: oResourceBundle.getText("produkte.Preis"),
+            label: this.geti18nText("produkte.Preis"),
             property: "preis",
           });
           aColumns.push({
-            label: oResourceBundle.getText("produkte.Mindestbestand"),
+            label: this.geti18nText("produkte.Mindestbestand"),
             property: "mindestbestand",
           });
           aColumns.push({
-            label: oResourceBundle.getText("produkte.Mengeok"),
+            label: this.geti18nText("produkte.Mengeok"),
             property: "mengeok",
           });
           aColumns.push({
-            label: oResourceBundle.getText("produkte.Mengewarnung"),
+            label: this.geti18nText("produkte.Mengewarnung"),
             property: "mengewarnung",
           });
           aColumns.push({
-            label: oResourceBundle.getText("produkte.Lieferanten"),
+            label: this.geti18nText("produkte.Lieferanten"),
             property: "lieferant/name",
           });
 
@@ -91,7 +81,7 @@ sap.ui.define(
               context: {
                 application: "Debug Test Application",
                 version: "1.105.0",
-                title: oResourceBundle.getText("menu.Produkte"),
+                title: this.geti18nText("menu.Produkte"),
               },
               hierarchyLevel: "level",
             },
@@ -100,7 +90,7 @@ sap.ui.define(
               dataUrl: `/Lagermanagement/Produkte?$expand=lieferant`,
               serviceUrl: "",
             },
-            fileName: oResourceBundle.getText("menu.Produkte") + ".xlsx",
+            fileName: this.geti18nText("menu.Produkte") + ".xlsx",
           };
           let oSpreadsheet = new Spreadsheet(mSettings);
           oSpreadsheet.build();

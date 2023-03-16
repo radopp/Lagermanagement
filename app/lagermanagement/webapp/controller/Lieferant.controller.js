@@ -1,6 +1,6 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "at/clouddna/lagermanagement/controller/BaseController",
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
@@ -12,7 +12,7 @@ sap.ui.define(
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
   function (
-    Controller,
+    BaseController,
     MessageBox,
     Filter,
     FilterOperator,
@@ -22,7 +22,7 @@ sap.ui.define(
   ) {
     "use strict";
 
-    return Controller.extend(
+    return BaseController.extend(
       "at.clouddna.lagermanagement.controller.Lieferant",
       {
         onInit: function () {
@@ -34,25 +34,19 @@ sap.ui.define(
 
         onListItemPressed: function (oEvent) {
           let sPath = oEvent.getSource().getBindingContext().getPath();
-          this.getOwnerComponent()
-            .getRouter()
-            .navTo("LieferantBearbeiten", {
-              ID: sPath.split("(")[1].split(")")[0],
-            });
+          this.getRouter().navTo("LieferantBearbeiten", {
+            ID: sPath.split("(")[1].split(")")[0],
+          });
         },
 
         onCreatePressed: function () {
-          this.getOwnerComponent().getRouter().navTo("LieferantErstellen");
+          this.getRouter().navTo("LieferantErstellen");
         },
 
         onDeleteButtonPressed: function (oEvent) {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           this.selectedBindngContext = oEvent.getSource().getBindingContext();
-          MessageBox.warning(oResourceBundle.getText("delete.Lieferant"), {
-            title: oResourceBundle.getText("delete.Delete"),
+          MessageBox.warning(this.geti18nText("delete.Lieferant"), {
+            title: this.geti18nText("delete.Delete"),
             actions: [MessageBox.Action.YES, MessageBox.Action.NO],
             emphasizedAction: MessageBox.Action.YES,
             onClose: function (oAction) {
@@ -68,13 +62,9 @@ sap.ui.define(
         },
 
         toExcel: function () {
-          let oResourceBundle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle();
-
           let aColumns = [];
           aColumns.push({
-            label: oResourceBundle.getText("lieferant.Lieferant"),
+            label: this.geti18nText("lieferant.Lieferant"),
             property: "name",
           });
 
@@ -84,7 +74,7 @@ sap.ui.define(
               context: {
                 application: "Debug Test Application",
                 version: "1.105.0",
-                title: oResourceBundle.getText("menu.Lieferant"),
+                title: this.geti18nText("menu.Lieferant"),
               },
               hierarchyLevel: "level",
             },
@@ -93,7 +83,7 @@ sap.ui.define(
               dataUrl: `/Lagermanagement/Lieferanten`,
               serviceUrl: "",
             },
-            fileName: oResourceBundle.getText("menu.Lieferant") + ".xlsx",
+            fileName: this.geti18nText("menu.Lieferant") + ".xlsx",
           };
           let oSpreadsheet = new Spreadsheet(mSettings);
           oSpreadsheet.build();

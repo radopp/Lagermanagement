@@ -102,7 +102,7 @@
                 {
                     "name": "RouteApp",
                     "pattern": ":?query:",
-                    "target": "RouteApp"
+                    "target": ["RouteApp", "TargetDashboard"]
                 },
                 {
                     "name": "Produkte",
@@ -183,6 +183,11 @@
                     "name": "LagerProdukteBearbeiten",
                     "pattern": "LagerProdukteBearbeiten/{ID}",
                     "target": "TargetLagerProdukteDetail"
+                },
+                {
+                    "name": "Dashboard",
+                    "pattern": "Dashboard",
+                    "target": "TargetDashboard"
                 }
             ],
             "targets": {
@@ -262,7 +267,14 @@
                         "clearControlAggregation": false,
                         "viewId": "LagerProdukteDetail",
                         "viewName": "LagerProdukteDetail"
-                }
+                },
+                    "TargetDashboard": {
+                        "viewType": "XML",
+                        "transition": "slide",
+                        "clearControlAggregation": false,
+                        "viewId": "Dashboard",
+                        "viewName": "Dashboard"
+            }
             }
         },
         "rootView": {

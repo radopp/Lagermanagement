@@ -5,6 +5,7 @@
             <Page id="menu" title="{i18n>title.Menu}" backgroundDesign="List">
                 <List itemPress="onListItemPressed">
                     <items>
+                        <StandardListItem id="dashboard_ID" title="{i18n>menu.Dashboard}" type="Active" />
                         <StandardListItem id="produkte_ID" title="{i18n>menu.Produkte}" type="Active" />
                         <StandardListItem id="lieferant_ID" title="{i18n>menu.Lieferant}" type="Active" />
                         <StandardListItem id="lagerorte_ID" title="{i18n>menu.Lagerorte}" type="Active" />

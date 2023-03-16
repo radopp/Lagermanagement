@@ -1,6 +1,6 @@
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
+    "at/clouddna/lagermanagement/controller/BaseController",
     "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
@@ -10,17 +10,17 @@ sap.ui.define(
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, History, JSONModel, Fragment, Log, MessageBox) {
+  function (BaseController, History, JSONModel, Fragment, Log, MessageBox) {
     "use strict";
 
-    return Controller.extend(
+    return BaseController.extend(
       "at.clouddna.lagermanagement.controller.LagerortDetail",
       {
         _fragmentList: {},
         _bCreate: false,
 
         onInit: function () {
-          let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          let oRouter = this.getRouter();
           oRouter
             .getRoute("LagerortBearbeiten")
             .attachPatternMatched(this._onPatternMatchedDetail, this);
@@ -44,8 +44,7 @@ sap.ui.define(
         _onPatternMatchedCreate: function (oEvent) {
           this._bCreate = true;
           this.getView().unbindElement();
-          let oContext = this.getView()
-            .getModel()
+          let oContext = this.getModel()
             .bindList("/Lager")
             .create(undefined, undefined, undefined, true);
           this._setFragement("LagerortErstellen");
@@ -69,18 +68,6 @@ sap.ui.define(
                 oPage.insertContent(this._fragmentList[sFragmentName]);
               }.bind(this)
             );
-          }
-        },
-
-        onNavBack: function () {
-          let oHistory = History.getInstance();
-          let sPreviousHash = oHistory.getPreviousHash();
-
-          if (sPreviousHash !== undefined) {
-            window.history.go(-1);
-          } else {
-            let oRouter = this.getOwnerComponent().getRouter();
-            oRouter.navTo("Lager");
           }
         },
         onEditPressed: function () {
