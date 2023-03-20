@@ -201,6 +201,16 @@ sap.ui.define(
           return this._sContentDensityClass;
         },
 
+        onNavBack: function () {
+          let oPreviousHash = History.getInstance().getPreviousHash();
+
+          if (oPreviousHash !== undefined) {
+            window.history.go(-1);
+          } else {
+            this.getRouter().navTo("Master", {}, true);
+          }
+        },
+
         logDebug: function (sMessage) {
           let oLogger = Log.getLogger(this.getView().getControllerName());
           oLogger.debug("DEBUG - " + sMessage);
